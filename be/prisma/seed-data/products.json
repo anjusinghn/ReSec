@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Aurora Leather Backpack",
+    "description": "Handcrafted full‑grain leather backpack with padded laptop sleeve and interior pockets.",
+    "priceCents": 13900,
+    "categoryId": 1,
+    "imageUrl": "https://images.unsplash.com/photo-1612810806695-30ba47d1c0e3?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "name": "Nimbus Noise-Cancelling Headphones",
+    "description": "Wireless over‑ear headphones featuring adaptive noise cancelling and 30‑hour battery life.",
+    "priceCents": 18900,
+    "categoryId": 4,
+    "imageUrl": "https://images.unsplash.com/photo-1516110833967-5781d3fee343?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "name": "Evergreen Ceramic Mug Set",
+    "description": "Set of four dishwasher‑safe stoneware mugs with reactive glaze finish.",
+    "priceCents": 4200,
+    "categoryId": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "name": "Lumos Smart Table Lamp",
