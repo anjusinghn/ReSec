@@ -1,0 +1,29 @@
+// Prisma schema for ShopSmart
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  username     String    @unique
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         String    @default("user")
+  displayName  String?   @map("display_name")
+  secretNote   String?   @map("secret_note")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  orders       Order[]
+  reviews      Review[]
+  wishlist     WishlistItem[]
+
+  @@map("user")
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
