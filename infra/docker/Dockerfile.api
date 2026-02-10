@@ -1,0 +1,20 @@
+FROM node:20-alpine
+
+# Install system dependencies for native modules (bcrypt, prisma, etc)
+RUN apk add --no-cache \
+        openssl \
+        ca-certificates \
+        python3 \
+        make \
+        g++ \
+        gcc \
+        libc-dev \
+        libxml2-dev \
+        libxslt-dev \
+        pkgconfig
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY prisma ./prisma/
