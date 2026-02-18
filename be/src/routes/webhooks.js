@@ -18,3 +18,23 @@ router.post('/settings/webhook', async (req, res) => {
     }
     
     // VULNERABILITY: No validation of URL - allows scanning internal network
+    // Can be used to reach:
+    // - http://internal-api:5000/secret
+    // - http://localhost:5000/secret  
+    // - http://169.254.169.254/latest/meta-data/ (cloud metadata)
+    
+    const urlObj = new URL(url);
+    const proto = urlObj.protocol === 'https:' ? https : http;
+    
+    proto.get(url, (webhookRes) => {
+      let data = '';
+      
+      webhookRes.on('data', (chunk) => {
+        data += chunk;
+      });
+      
+      webhookRes.on('end', () => {
+        res.json({
+          message: 'Webhook verified successfully',
+          statusCode: webhookRes.statusCode,
+          response: data,
