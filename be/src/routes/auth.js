@@ -25,3 +25,29 @@ router.post('/auth/register', async (req, res) => {
     
     // Create user
     const user = await prisma.user.create({
+      data: {
+        username,
+        email,
+        passwordHash,
+        displayName: displayName || username,
+        role: 'user'
+      }
+    });
+    
+    // Set session
+    req.session.userId = user.id;
+    req.session.role = user.role;
+    
+    res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Login
+router.post('/auth/login', async (req, res) => {
