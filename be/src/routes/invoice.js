@@ -1,0 +1,31 @@
+const express = require('express');
+const prisma = require('../lib/db');
+
+const router = express.Router();
+
+const SAFE_MATH = /^[0-9+\-*/().\s]+$/;
+const SAFE_PATH = /^[a-zA-Z][a-zA-Z0-9_]*$/;
+
+function resolvePath(context, path) {
+  const segments = path.split('.');
+  let current = context;
+
+  for (const segment of segments) {
+    if (!SAFE_PATH.test(segment)) {
+      return undefined;
+    }
+    if (current === null || current === undefined) {
+      return undefined;
+    }
+    if (typeof current !== 'object' && typeof current !== 'function') {
+      return undefined;
+    }
+    current = current[segment];
+  }
+
+  return current;
+}
+
+function evaluateExpression(expression, context) {
+  const trimmed = expression.trim();
+
