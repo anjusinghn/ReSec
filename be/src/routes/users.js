@@ -28,3 +28,33 @@ router.get('/user/:userId', async (req, res) => {
     
     res.json(user);
   } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Update user profile - INTENTIONALLY VULNERABLE TO MASS ASSIGNMENT
+router.put('/user/profile', async (req, res) => {
+  try {
+    if (!req.session.userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    
+    // VULNERABILITY: Accepts any field from request body without filtering
+    // User can escalate privileges by passing { role: 'admin' }
+    const { displayName, email, username, role } = req.body;
+    
+    const updateData = {};
+    if (displayName !== undefined) updateData.displayName = displayName;
+    if (email !== undefined) updateData.email = email;
+    if (username !== undefined) updateData.username = username;
+    if (role !== undefined) {
+      // FLAG: Admin role grants access to admin-only endpoints
+      updateData.role = role;
+      // Update session role if changed
+      req.session.role = role;
+    }
+    
+    const user = await prisma.user.update({
+      where: { id: req.session.userId },
+      data: updateData,
+      select: {
