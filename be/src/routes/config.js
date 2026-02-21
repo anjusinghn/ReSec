@@ -18,3 +18,23 @@ router.get('/config', (req, res) => {
         flag: 'PCTFS{configuration_data_exposed}',
         admin_credentials: {
           email: process.env.ADMIN_EMAIL,
+          password: process.env.ADMIN_PASSWORD
+        }
+      });
+    }
+    
+    // Public config
+    res.json({
+      apiVersion: '1.0.0',
+      features: ['cart', 'wishlist', 'reviews', 'orders']
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
+
+
+
