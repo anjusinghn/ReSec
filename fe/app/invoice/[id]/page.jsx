@@ -27,3 +27,32 @@ export default async function InvoicePage({ params, searchParams }) {
           </div>
         </div>
 
+        <div className="mb-6">
+          <h6 className="font-semibold mb-2">Bill To:</h6>
+          <div>John Doe<br/>john@example.com<br/>123 Main Street<br/>New York, NY 10001</div>
+        </div>
+
+        <table className="w-full text-sm mb-6">
+          <thead className="bg-black/5 dark:bg-white/10">
+            <tr>
+              <th className="text-left p-2">Description</th>
+              <th className="text-center p-2">Qty</th>
+              <th className="text-right p-2">Unit Price</th>
+              <th className="text-right p-2">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map(i => (
+              <tr key={i.id} className="border-b border-black/10 dark:border-white/10">
+                <td className="p-2">{i.description}</td>
+                <td className="text-center p-2">{i.qty}</td>
+                <td className="text-right p-2">${(i.priceCents/100).toFixed(2)}</td>
+                <td className="text-right p-2">${((i.priceCents*i.qty)/100).toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="grid md:grid-cols-3 gap-4 justify-end mb-6">
+          <div className="md:col-start-3 space-y-1">
+            <div className="flex justify-between"><span>Subtotal:</span><span>${(subtotal/100).toFixed(2)}</span></div>
