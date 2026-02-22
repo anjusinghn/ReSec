@@ -29,3 +29,34 @@ router.get('/download/invoice', async (req, res) => {
     }
     
     // VULNERABILITY: ....// bypass works by replacing with ../ after check
+    let processedFile = file.replace(/\.\.\.\.\/\//g, '../');
+    
+    // Also vulnerable to direct absolute paths
+    let finalPath;
+    if (processedFile.startsWith('/')) {
+      finalPath = processedFile;
+    } else {
+      const baseDir = '/app/invoices';
+      finalPath = path.join(baseDir, processedFile);
+    }
+    
+    // VULNERABILITY: No proper path validation
+    try {
+      const fileContent = fs.readFileSync(finalPath, 'utf8');
+      
+      // Successful path traversal - return file content with flag
+      return res.send(fileContent + '\nPCTFS{path_traversal_invoice_download_bypass}');
+    } catch (err) {
+      res.status(404).json({ 
+        error: 'File not found'
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Profile picture upload - INTENTIONALLY VULNERABLE TO PATH TRAVERSAL  
+router.post('/upload/profile-picture', async (req, res) => {
+  try {
+    if (!req.session.userId) {
