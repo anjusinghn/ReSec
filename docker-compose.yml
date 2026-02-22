@@ -22,3 +22,26 @@ services:
   # Redis Cache
   redis:
     image: redis:7-alpine
+    container_name: shopsmart-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Internal API (for SSRF flags) - runs in Docker for isolation
+  internal-api:
+    image: node:20-alpine
+    container_name: shopsmart-internal-api
+    environment:
+      SSRF_FLAG: "PCTFS{ssrf_internal_service_reached}"
+    volumes:
+      - ./infra/internal-api.js:/app/server.js:ro
+    command: node /app/server.js
+    ports:
+      - "5000:5000"
+
+volumes:
+  postgres_data:
