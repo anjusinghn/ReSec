@@ -31,3 +31,36 @@ export default function OrderDetailsPage() {
       const effectiveId = orderId === '2' ? '2' : `${orderId} OR 1=1--`;
       const target = `${API_BASE}/api/v1/orders/${encodeURIComponent(effectiveId)}`;
       const response = await fetch(target, {
+        credentials: 'include'
+      });
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          setError('Access Restricted: This order does not belong to you or does not exist.');
+        } else if (response.status === 401) {
+          setError('Please login to view orders');
+        } else {
+          const data = await response.json();
+          setError(data.error || 'Failed to load order');
+        }
+        return;
+      }
+
+      const data = await response.json();
+      setOrder(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const generateInvoice = async () => {
+    setInvoiceLoading(true);
+    setInvoiceData(null);
+
+    try {
+      const params = new URLSearchParams();
+      if (customNote.trim()) {
+        params.append('note', customNote);
+      }

@@ -30,3 +30,35 @@ export default function CatalogImportPage() {
     try {
       const response = await fetch(`${API_BASE}/api/v1/admin/import`, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin': 'true'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ xml: xmlData })
+      });
+
+      const data = await response.json();
+      setResult({
+        status: response.status,
+        data: data
+      });
+
+      if (!response.ok) {
+        setError(data.error || 'Import failed');
+      }
+
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadSampleXml = (type) => {
+    const samples = {
+      basic: `<products>
+  <product>
+    <name>Wireless Headphones</name>
+    <price>89.99</price>
+    <category>Electronics</category>
