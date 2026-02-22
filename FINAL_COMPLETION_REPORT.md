@@ -31,3 +31,36 @@ All **20 vulnerability instances** across **10 security categories** have been s
 
 #### Database Flags (Dynamic UUIDs)
 - `admin_secret.sqli_flag` → SQL Injection (Search)
+- `order.gift_note` (Admin) → SQL Injection (Order) + IDOR (Order)
+- `user.secretNote` (Admin) → IDOR (Profile)
+
+#### File System Flags (UUID Generated)
+- `/app/secrets/flag.txt` → XXE (both instances)
+  - `PCTFS{42a01cc1-13ef-4c5d-a1de-02788852e334}`
+- `/etc/app_secrets/flag.txt` → Path Traversal (both instances)
+  - `PCTFS{4274555c-87ff-419c-8cd2-ac6af19f3480}`
+- `fe/.git/config` → Git Exposure
+  - `PCTFS{7a8b9c2d-4e5f-6789-abcd-ef0123456789}`
+
+#### Environment Variable Flags
+- `SHOPSMART_FLAG` → SSTI (Invoice)
+  - `PCTFS{ssti_invoice_template_injection}`
+- `SSTI_EMAIL_FLAG` → SSTI (Email)
+  - `PCTFS{ssti_email_template_displayname}`
+- `VULN_COMPONENT_FLAG` → Debug Console
+  - `PCTFS{eval_debug_console_rce}`
+- `PILLOW_FLAG` → Pillow CVE
+  - `PCTFS{pillow_8_1_0_buffer_overflow_memory_leak}`
+
+#### Hardcoded Flags
+- Config API → `PCTFS{configuration_data_exposed}`
+- Open Redirect (Login) → `PCTFS{open_redirect_post_login}`
+- Open Redirect (Affiliate) → `PCTFS{open_redirect_affiliate_tracking}`
+
+#### Network Flags
+- Internal API (`http://internal-api:5000/secret`) → SSRF
+  - `PCTFS{ssrf_internal_service_reached}`
+
+#### Non-Flag Vulnerabilities
+- XSS (Stored & Reflected) → Session/cookie theft (no static flag)
+
