@@ -31,3 +31,35 @@
           "200": {
             "description": "User profile returned",
             "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/v1/orders/{id}": {
+      "get": {
+        "summary": "Fetch order by id",
+        "description": "Returns order information for any ID supplied.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": 123
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order information returned",
+            "content": {
