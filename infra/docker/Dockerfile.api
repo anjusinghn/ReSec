@@ -18,3 +18,22 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 COPY prisma ./prisma/
+
+# Install dependencies with retry and alternative registry
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm install --network-timeout=100000 || \
+    (npm config set registry https://registry.npmjs.org && npm install --network-timeout=100000)
+
+# Copy application code
+COPY . .
+
+# Generate Prisma client
+RUN npx prisma generate
+
+# Expose port
+EXPOSE 4000
+
+# Start command (will be overridden in docker-compose for dev)
+CMD ["npm", "start"]
+
+
