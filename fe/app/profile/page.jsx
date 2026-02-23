@@ -32,3 +32,37 @@ export default function ProfilePage() {
             window.dispatchEvent(new Event('session-sync'));
           }
         } else if (res.status === 401) {
+          setUser(null);
+          localStorage.removeItem('sessionUser');
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new Event('session-sync'));
+          }
+          router.replace('/login');
+        } else {
+          const body = await res.json().catch(() => ({}));
+          setProfileError(body.error || 'Unable to load profile');
+        }
+      } catch (err) {
+        setProfileError(err.message || 'Unable to load profile');
+      } finally {
+        setLoadingProfile(false);
+      }
+    };
+
+    fetchProfile();
+  }, [router]);
+
+  useEffect(() => {
+    if (!user || formData) {
+      return;
+    }
+
+    const baseAddress = {
+      street: '',
+      city: '',
+      state: '',
+      zip: '',
+      country: 'United States'
+    };
+
+    if (user.displayName) {
