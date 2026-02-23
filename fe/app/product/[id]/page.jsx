@@ -32,3 +32,36 @@ export default function ProductPage({ params }) {
     2: {
       id: 2,
       name: 'Mens Casual Premium Slim Fit Tee',
+      description: 'Slim-fitting style with a comfortable jersey fabric.',
+      priceCents: 2230,
+      imageUrl: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879_.jpg',
+      categoryId: 1
+    },
+    3: {
+      id: 3,
+      name: 'Mens Cotton Jacket',
+      description: 'Great outerwear jackets for Spring/Autumn/Winter.',
+      priceCents: 5599,
+      imageUrl: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
+      categoryId: 2
+    },
+    4: {
+      id: 4,
+      name: 'Mens Casual Slim Fit',
+      description: 'The color could be slightly different between on the screen and in practice.',
+      priceCents: 1599,
+      imageUrl: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
+      categoryId: 2
+    },
+    5: {
+      id: 5,
+      name: "Women's Legends Naga Bracelet",
+      description: 'Inspired by the mythical water dragon that protects the ocean.',
+      priceCents: 69500,
+      imageUrl: 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg',
+      categoryId: 3
+    },
+    6: {
+      id: 6,
+      name: 'Solid Gold Petite Micropave Ring',
+      description: 'Satisfaction guaranteed. Lovely tiny stackable ring.',
