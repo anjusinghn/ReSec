@@ -19,3 +19,24 @@ export default function WishlistPage() {
         <div className="text-6xl mb-3">❤️</div>
         <h4 className="text-xl font-semibold mb-2">Your wishlist is empty</h4>
         <p className="text-foreground/70 mb-4">Save items you like to buy them later</p>
+        <Link href="/products" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Browse Products</Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-extrabold mb-6">My Wishlist</h1>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {wishlist.map((i)=> (
+          <div key={i.id} className="relative rounded-xl border border-black/10 dark:border-white/10 overflow-hidden">
+            <button onClick={()=>remove(i.id)} className="absolute top-2 right-2 text-red-600">✕</button>
+            <div className="relative pt-[100%]">
+              <img src={i.imageUrl} alt={i.name} className="absolute inset-0 w-full h-full object-cover" />
+              {!i.inStock && (
+                <span className="absolute top-2 left-2 text-xs px-2 py-1 rounded bg-black/70 text-white">Out of Stock</span>
+              )}
+            </div>
+            <div className="p-4">
+              <div className="text-xs inline-block px-2 py-1 rounded bg-black/5 dark:bg-white/10 mb-1">{i.category}</div>
+              <h3 className="text-sm font-semibold mb-2 line-clamp-2">
