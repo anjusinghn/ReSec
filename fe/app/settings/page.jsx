@@ -17,3 +17,21 @@ export default function SettingsPage() {
           <div><label className="block text-sm mb-1">Current Password</label><input type="password" className="w-full px-3 py-2 rounded border bg-background"/></div>
           <div><label className="block text-sm mb-1">New Password</label><input type="password" className="w-full px-3 py-2 rounded border bg-background"/></div>
           <div><label className="block text-sm mb-1">Confirm New Password</label><input type="password" className="w-full px-3 py-2 rounded border bg-background"/></div>
+          <button className="px-4 py-2 rounded bg-blue-600 text-white">Update Password</button>
+        </form>
+
+        <form onSubmit={(e)=>{e.preventDefault(); save('Notification preferences saved');}} className="rounded-xl border border-black/10 dark:border-white/10 p-6 space-y-3">
+          <h5 className="font-semibold">🔔 Notifications</h5>
+          {['Orders','Promotions','Shipping','Newsletter','Price drops'].map((l,i)=> (
+            <label key={i} className="flex items-center gap-2 text-sm"><input type="checkbox" defaultChecked={i<2}/> Email notifications for {l}</label>
+          ))}
+          <button className="px-4 py-2 rounded bg-blue-600 text-white">Save Preferences</button>
+        </form>
+
+        <form onSubmit={(e)=>{e.preventDefault(); save('Privacy settings saved');}} className="rounded-xl border border-black/10 dark:border-white/10 p-6 space-y-3">
+          <h5 className="font-semibold">🔐 Privacy</h5>
+          <div><label className="block text-sm mb-1">Profile Visibility</label><select className="w-full px-3 py-2 rounded border bg-background"><option>Public</option><option>Friends Only</option><option>Private</option></select></div>
+          {['Show purchase history','Show wishlist publicly','Allow personalized recommendations'].map((l,i)=> (
+            <label key={i} className="flex items-center gap-2 text-sm"><input type="checkbox" defaultChecked={i>0}/> {l}</label>
+          ))}
+          <button className="px-4 py-2 rounded bg-blue-600 text-white">Save Settings</button>
