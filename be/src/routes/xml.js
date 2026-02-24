@@ -27,3 +27,32 @@ router.post('/admin/import', async (req, res) => {
     
     try {
       // Check if XML contains entity definition
+      const entityMatch = xml.match(/<!ENTITY\s+(\w+)\s+SYSTEM\s+"(.+?)"/);
+      let resolvedXml = xml;
+      
+      let flagDisclosure = false;
+
+      if (entityMatch) {
+        const [, entityName, entityPath] = entityMatch;
+        
+        // VULNERABILITY: Read file system based on entity path
+        try {
+          const entityContent = fs.readFileSync(entityPath, 'utf8');
+          // Replace entity references with file content
+          resolvedXml = xml.replace(new RegExp(`&${entityName};`, 'g'), entityContent);
+          // Remove the DOCTYPE declaration to prevent parser rejection
+          resolvedXml = resolvedXml.replace(/<!DOCTYPE[^>]*>/g, '');
+          flagDisclosure = true; // Any successful file read triggers flag disclosure
+        } catch (fsError) {
+          return res.status(400).json({ 
+            error: 'XXE: File read failed',
+            details: fsError.message 
+          });
+        }
+      }
+      
+      // Parse the XML
+      const parser = new XMLParser();
+      const parsed = parser.parse(resolvedXml);
+      
+      const products = [];

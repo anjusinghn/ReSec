@@ -30,3 +30,35 @@ const offers = [
 
 export default function AffiliatePortal() {
   const searchParams = useSearchParams();
+  const [notice, setNotice] = useState('');
+
+  const [partnerName, setPartnerName] = useState('Cosmic Creatives');
+  const [partnerCode, setPartnerCode] = useState('COSMIC-001');
+  const [selectedOfferId, setSelectedOfferId] = useState(offers[0].id);
+  const [customRedirect, setCustomRedirect] = useState(offers[0].redirect);
+  const [copied, setCopied] = useState('');
+
+  const selectedOffer = useMemo(
+    () => offers.find((offer) => offer.id === selectedOfferId) ?? offers[0],
+    [selectedOfferId]
+  );
+
+  const baseRedirect = selectedOffer.redirect;
+  const linkModified = customRedirect.trim() !== baseRedirect;
+
+  const referralLink = useMemo(() => {
+    const params = new URLSearchParams({
+      partner_id: partnerCode || 'AFFILIATE',
+      redirect: customRedirect
+    });
+    return `${API_BASE}/api/v1/track?${params.toString()}`;
+  }, [partnerCode, customRedirect]);
+
+  const handleOfferChange = (offerId) => {
+    setSelectedOfferId(offerId);
+    const offer = offers.find((o) => o.id === offerId);
+    if (offer) {
+      setCustomRedirect(offer.redirect);
+    }
+  };
+
