@@ -27,3 +27,31 @@ This script will:
 3. Wait for the database to be ready
 4. Set up and seed the database
 5. Start both API and Frontend servers concurrently
+
+Press `Ctrl+C` to stop all services.
+
+### Option 2: Manual step-by-step
+
+```bash
+# 1. Start Docker services
+npm run docker:up
+
+# 2. Seed the database
+npm run db:seed
+
+# 3. Start development servers
+npm run dev
+```
+
+### Option 3: All-in-one command
+
+```bash
+npm start
+```
+
+## Available Scripts
+
+### Main Commands
+
+- `npm start` - Start everything (Docker + DB seed + Dev servers)
+- `npm run dev` - Start API and Frontend concurrently (assumes Docker is running)
