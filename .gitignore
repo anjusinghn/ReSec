@@ -23,3 +23,28 @@ pnpm-debug.log*
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
+
+# Python virtualenv
+.venv/
+__pycache__/
+*.py[cod]
+
+# Terraform state
+infra/.terraform/
+infra/terraform.tfstate
+infra/terraform.tfstate.*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Temporary data
+tmp/
+
+# Coverage / test output
+coverage/
+.nyc_output/
