@@ -29,3 +29,34 @@ export default function InvoiceParserPage() {
 
     setLoading(true);
     setError('');
+    setResult(null);
+
+    try {
+      const response = await fetch(`${API_BASE}/api/v1/invoice/parse`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ xml: xmlData })
+      });
+
+      const data = await response.json();
+      setResult({
+        status: response.status,
+        data: data
+      });
+
+      if (!response.ok) {
+        setError(data.error || 'Parsing failed');
+      }
+
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadSampleInvoice = (type) => {
+    const samples = {
