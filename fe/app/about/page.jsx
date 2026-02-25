@@ -23,3 +23,28 @@ export default function AboutPage() {
               <div className="text-5xl mb-2">{v.icon}</div>
               <h3 className="text-lg font-semibold mb-2">{v.title}</h3>
               <p className="text-sm text-foreground/70">{v.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="rounded-2xl p-8 bg-black/5 dark:bg-white/5 text-center">
+        <h2 className="text-2xl font-bold mb-2">By the Numbers</h2>
+        <div className="grid md:grid-cols-4 gap-6 mt-4">
+          {[{n:'50K+', l:'Happy Customers'},{n:'10K+', l:'Products'},{n:'100K+', l:'Orders Shipped'},{n:'4.8', l:'Average Rating'}].map((s,i)=>(
+            <div key={i}>
+              <div className="text-4xl font-extrabold text-blue-600 dark:text-blue-400">{s.n}</div>
+              <div className="text-sm text-foreground/70">{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
