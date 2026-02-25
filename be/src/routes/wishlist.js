@@ -28,3 +28,32 @@ router.get('/wishlist', async (req, res) => {
 router.post('/wishlist', async (req, res) => {
   try {
     if (!req.session.userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    
+    const { productId } = req.body;
+    
+    // Check if already in wishlist
+    const existing = await prisma.wishlistItem.findFirst({
+      where: {
+        userId: req.session.userId,
+        productId: parseInt(productId)
+      }
+    });
+    
+    if (existing) {
+      return res.status(400).json({ error: 'Already in wishlist' });
+    }
+    
+    const item = await prisma.wishlistItem.create({
+      data: {
+        userId: req.session.userId,
+        productId: parseInt(productId)
+      },
+      include: {
+        product: true
+      }
+    });
+    
+    res.json(item);
+  } catch (error) {
