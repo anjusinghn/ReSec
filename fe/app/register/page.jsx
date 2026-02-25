@@ -27,3 +27,32 @@ export default function RegisterPage() {
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
+      return;
+    }
+
+    try {
+      const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000';
+      const response = await fetch(`${API_BASE}/api/v1/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          displayName: `${firstName} ${lastName}`.trim()
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
+      }
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('sessionUser', JSON.stringify({
+          id: data.id,
+          username: data.username,
