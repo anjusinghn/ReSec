@@ -28,3 +28,32 @@ export default function ReviewsPage() {
             <div className="text-6xl mb-2">⭐</div>
             <h4 className="text-lg font-semibold mb-1">No pending reviews</h4>
             <p className="text-foreground/70 mb-3">Purchase products to leave reviews</p>
+            <Link href="/products" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Shop Now</Link>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {pending.map(r => (
+              <div key={r.id} className="rounded-xl border border-black/10 dark:border-white/10 p-4">
+                <div className="grid grid-cols-12 gap-3 items-center">
+                  <img src={r.imageUrl} className="w-16 h-16 rounded object-cover col-span-2" />
+                  <div className="col-span-8">
+                    <Link href={`/product/${r.productId}`} className="font-semibold hover:underline">{r.productName}</Link>
+                    <div className="text-sm text-foreground/70">Order #{r.orderId}</div>
+                  </div>
+                  <div className="col-span-2 text-right">
+                    <button className="px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Write Review</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )
+      ) : (
+        <div className="space-y-3">
+          {mine.map(r => (
+            <div key={r.id} className="rounded-xl border border-black/10 dark:border-white/10 p-4">
+              <div className="grid grid-cols-12 gap-3">
+                <img src={r.imageUrl} className="w-16 h-16 rounded object-cover col-span-2" />
+                <div className="col-span-10">
+                  <div className="flex items-start justify-between">
+                    <div>
