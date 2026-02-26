@@ -23,3 +23,28 @@ export default function LoginPage() {
       const response = await fetch(`${API_BASE}/api/v1/auth/login`, {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed');
+      }
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('sessionUser', JSON.stringify({
+          id: data.id,
+          username: data.username,
+          email: data.email,
+          role: data.role,
+          displayName: data.displayName,
+        }));
+        window.dispatchEvent(new Event('session-sync'));
+      }
