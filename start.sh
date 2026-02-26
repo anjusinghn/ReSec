@@ -20,3 +20,25 @@ until docker exec shopsmart-db pg_isready -U shop &>/dev/null; do
 done
 echo " ✅ Database ready!"
 
+# Database setup and seeding
+echo "📦 Setting up database schema and seeding data..."
+cd be
+npm run prisma:push 2>&1 | grep -E "(Applied|Already|Error)" || true
+npm run prisma:seed 2>&1 | grep -E "(Seeded|Error|products|users)" || echo "✅ Database seeded"
+cd ..
+
+echo ""
+echo "✨ Starting API and Frontend servers..."
+echo ""
+echo "📍 Services will be available at:"
+echo "   🔹 Frontend: http://localhost:3000"
+echo "   🔹 Backend API: http://localhost:4000"
+echo "   🔹 API Health: http://localhost:4000/health"
+echo "   🔹 Swagger: http://localhost:4000/swagger.json"
+echo ""
+echo "💡 Press Ctrl+C to stop all services"
+echo ""
+
+# Start development image.pngservers with concurrently
+npm run dev
+
