@@ -32,3 +32,37 @@
 
 ---
 
+## 🏗️ Technology Stack
+
+### Frontend
+- **Framework**: Next.js 15 (App Router)
+- **UI**: React 18 + Tailwind CSS
+- **Auth**: Better Auth
+- **Theme**: Dark mode support with `next-themes`
+
+### Backend
+- **Runtime**: Node.js 20
+- **Framework**: Express.js 4
+- **Database**: PostgreSQL 12
+- **ORM**: Prisma
+- **Cache**: Redis 7
+- **Sessions**: Redis-backed with `express-session`
+- **Email**: Nodemailer
+
+### Infrastructure
+- **Reverse Proxy**: Nginx
+- **Containerization**: Docker + Docker Compose
+- **Process Manager**: PM2 (production)
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Docker & Docker Compose
+- Node.js 20+ (for local development)
+- Git
+
+### 1. Clone the Repository
+```bash
+git clone <repo-url>
