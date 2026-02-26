@@ -25,3 +25,30 @@ export default function CartPage() {
     const updated = items.filter(i => i.id !== id);
     setItems(updated); localStorage.setItem('cart', JSON.stringify(updated));
   };
+
+  const subtotal = items.reduce((s,i)=> s + i.priceCents*i.qty, 0);
+  const shipping = 999; const tax = Math.floor(subtotal*0.08); const total = subtotal+shipping+tax;
+
+  if (items.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <div className="text-6xl mb-3">🛒</div>
+        <h4 className="text-xl font-semibold mb-2">Your cart is empty</h4>
+        <p className="text-foreground/70 mb-4">Add some products to get started</p>
+        <Link href="/products" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Continue Shopping</Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-8 grid lg:grid-cols-3 gap-6">
+      <div className="lg:col-span-2 rounded-xl border border-black/10 dark:border-white/10 p-4 divide-y divide-black/10 dark:divide-white/10">
+        {items.map(i => (
+          <div key={i.id} className="py-3 grid grid-cols-12 items-center gap-3">
+            <img src={i.imageUrl} alt={i.name} className="w-16 h-16 rounded object-cover col-span-2" />
+            <div className="col-span-6">
+              <Link href={`/product/${i.id}`} className="font-semibold hover:underline">{i.name}</Link>
+              <div className="text-sm text-foreground/70">${(i.priceCents/100).toFixed(2)} each</div>
+            </div>
+            <div className="col-span-2 flex items-center gap-1">
+              <button onClick={()=>updateQty(i.id, i.qty-1)} className="px-2 py-1 rounded border">-</button>
