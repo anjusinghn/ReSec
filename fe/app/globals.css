@@ -20,3 +20,25 @@
   --foreground: #f1f5f9;
   --ambient-primary: radial-gradient(circle at 12% 8%, rgba(56, 189, 248, 0.35), transparent 55%);
   --ambient-secondary: radial-gradient(circle at 90% 18%, rgba(45, 212, 191, 0.22), transparent 58%);
+  --ambient-tertiary: radial-gradient(circle at 48% 92%, rgba(79, 70, 229, 0.22), transparent 60%);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  position: relative;
+}
+
+.theme-shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.theme-backdrop,
+.theme-backdrop-secondary {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
