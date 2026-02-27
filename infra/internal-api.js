@@ -12,3 +12,17 @@ const server = http.createServer((req, res) => {
     }));
   } else {
     res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      message: 'Internal API - try /secret endpoint',
+      endpoints: ['/secret']
+    }));
+  }
+});
+
+const PORT = 5000;
+server.listen(PORT, () => {
+  console.log(`Internal API listening on port ${PORT}`);
+  console.log(`Flag endpoint: http://localhost:${PORT}/secret`);
+});
+
+
