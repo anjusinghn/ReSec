@@ -26,3 +26,31 @@ export default async function OrderDetailPage({ params }) {
       <div className="flex items-start justify-between mb-4">
         <div>
           <h1 className="text-2xl font-bold">Order #{order.id}</h1>
+          <div className="text-sm text-foreground/70">Placed on {order.date}</div>
+        </div>
+        <span className={`text-xs px-2 py-1 rounded ${statusColor(order.status)}`}>{order.status}</span>
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 rounded-xl border border-black/10 dark:border-white/10 p-4">
+          <h3 className="font-semibold mb-3">Order Items</h3>
+          <div className="divide-y divide-black/10 dark:divide-white/10">
+            {order.items.map(i => (
+              <div key={i.id} className="py-3 grid grid-cols-12 items-center gap-3">
+                <img src={i.imageUrl} className="w-16 h-16 rounded object-cover col-span-2" />
+                <div className="col-span-7">
+                  <Link href={`/product/${i.id}`} className="font-semibold hover:underline">{i.name}</Link>
+                  <div className="text-sm text-foreground/70">Qty: {i.qty}</div>
+                </div>
+                <div className="col-span-3 text-right font-semibold">${((i.priceCents*i.qty)/100).toFixed(2)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="space-y-4">
+          <div className="rounded-xl border border-black/10 dark:border-white/10 p-4">
+            <h6 className="font-semibold mb-2">Shipping Address</h6>
+            <p className="text-sm">
+              {order.shippingAddress.name}<br />
+              {order.shippingAddress.street}<br />
+              {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}<br />
