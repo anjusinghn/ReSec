@@ -38,3 +38,22 @@ router.post('/settings/webhook', async (req, res) => {
           message: 'Webhook verified successfully',
           statusCode: webhookRes.statusCode,
           response: data,
+          flag: data.includes('PCTFS{') ? 'FLAG_FOUND' : undefined
+        });
+      });
+    }).on('error', (err) => {
+      res.status(500).json({ 
+        error: 'Webhook verification failed',
+        details: err.message 
+      });
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
+
+
+
