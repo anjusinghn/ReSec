@@ -46,3 +46,27 @@
     "description": "Soft merino wool throw with fringed edges in a rich saffron hue.",
     "priceCents": 11800,
     "categoryId": 6,
+    "imageUrl": "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "name": "Vertex Mechanical Keyboard",
+    "description": "Hot-swappable mechanical keyboard with programmable RGB lighting and tactile switches.",
+    "priceCents": 9900,
+    "categoryId": 4,
+    "imageUrl": "https://images.unsplash.com/photo-1517436073-7b60f1043c39?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "name": "Marina Scented Candle Trio",
+    "description": "Set of three soy wax candles inspired by coastal botanicals and sea breeze.",
+    "priceCents": 3600,
+    "categoryId": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1503863937795-62954a3c0f05?auto=format&fit=crop&w=700&q=80"
+  },
+  {
+    "name": "Summit Trail Running Shoes",
+    "description": "Lightweight trail runners with breathable mesh upper and aggressive outsole.",
+    "priceCents": 12400,
+    "categoryId": 3,
+    "imageUrl": "https://images.unsplash.com/photo-1520367745676-234fdd6e1f86?auto=format&fit=crop&w=700&q=80"
+  }
+]
