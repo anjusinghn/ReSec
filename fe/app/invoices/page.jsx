@@ -59,3 +59,33 @@ export default function InvoicesPage() {
           status: response.status,
           filename: fileToDownload
         });
+        
+        if (!response.ok) {
+          setError('File not found or access denied');
+        }
+      }
+
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-10 max-w-4xl">
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold">Invoice Downloads</h1>
+          <p className="text-foreground/70 mt-2">
+            Download your invoices and reports. Select from common files or enter a custom filename.
+          </p>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-semibold mb-2">Common Invoices</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                {commonInvoices.map((invoice) => (
+                  <button
