@@ -58,3 +58,32 @@ router.put('/user/profile', async (req, res) => {
       where: { id: req.session.userId },
       data: updateData,
       select: {
+        id: true,
+        username: true,
+        email: true,
+        displayName: true,
+        role: true
+      }
+    });
+    
+    // If user escalated to admin, reveal the flag
+    if (user.role === 'admin') {
+      return res.json({
+        ...user,
+        message: 'Profile updated successfully',
+        admin_panel: '/api/v1/admin/dashboard',
+        flag: process.env.MASS_ASSIGNMENT_FLAG || 'PCTFS{mass_assignment_privilege_escalation}'
+      });
+    }
+    
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
+
+
+
