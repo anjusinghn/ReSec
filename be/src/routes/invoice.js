@@ -29,3 +29,34 @@ function resolvePath(context, path) {
 function evaluateExpression(expression, context) {
   const trimmed = expression.trim();
 
+  if (!trimmed) {
+    return '';
+  }
+
+  if (SAFE_MATH.test(trimmed)) {
+    try {
+      // eslint-disable-next-line no-new-func
+      const result = Function(`"use strict"; return (${trimmed});`)();
+      return result !== undefined ? result : '';
+    } catch (err) {
+      return `[error:${err.message}]`;
+    }
+  }
+
+  if (/^[a-zA-Z][a-zA-Z0-9_.]*$/.test(trimmed)) {
+    const value = resolvePath(context, trimmed);
+    return value !== undefined && value !== null ? value : '';
+  }
+
+  return '[blocked]';
+}
+
+function renderNoteTemplate(template, context) {
+  return template.replace(/\{\{\s*(.+?)\s*\}\}/g, (_, expr) => {
+    const rendered = evaluateExpression(expr, context);
+    return rendered === undefined || rendered === null ? '' : String(rendered);
+  });
+}
+
+// Get invoice data - INTENTIONALLY VULNERABLE TO SSTI
+router.get('/invoice/:id', async (req, res) => {
