@@ -51,3 +51,30 @@ router.post('/auth/register', async (req, res) => {
 
 // Login
 router.post('/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    // Find user
+    const user = await prisma.user.findUnique({
+      where: { email }
+    });
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    
+    // Verify password
+    const valid = await bcrypt.compare(password, user.passwordHash);
+    
+    if (!valid) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    
+    // Set session
+    req.session.userId = user.id;
+    req.session.role = user.role;
+    
+    res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
