@@ -64,3 +64,35 @@ All **20 vulnerability instances** across **10 security categories** have been s
 #### Non-Flag Vulnerabilities
 - XSS (Stored & Reflected) → Session/cookie theft (no static flag)
 
+---
+
+## 📁 Files Created/Modified
+
+### New Backend Routes
+✅ `be/src/routes/download.js` - Path Traversal + Open Redirect (4 vulnerabilities)
+✅ `be/src/routes/email.js` - SSTI (Email Template)
+✅ `be/src/routes/invoice.js` - SSTI (restricted renderer)
+✅ `be/src/routes/admin.js` - Vuln Components (Debug + Pillow)
+✅ `be/src/routes/xml.js` - XXE (2 instances)
+✅ `be/src/routes/proxy.js` - SSRF (Image Proxy)
+✅ `be/src/routes/webhooks.js` - SSRF (Webhook)
+✅ `be/src/routes/config.js` - Data Exposure (Config)
+✅ `be/src/routes/products.js` - SQL Injection (Search)
+✅ `be/src/routes/orders.js` - SQL Injection (Order) + IDOR
+✅ `be/src/routes/users.js` - IDOR (Profile)
+✅ `be/src/routes/reviews.js` - XSS (Stored)
+
+### Frontend Pages
+✅ `fe/app/product/[id]/page.jsx` - XSS (Stored + Reflected)
+✅ `fe/app/search/page.jsx` - SQL Injection frontend
+✅ All other pages migrated to Tailwind CSS
+
+### Infrastructure
+✅ `docker-compose.yml` - Updated with all flags and internal-api service
+✅ `infra/internal-api.js` - SSRF target service
+✅ `infra/nginx/default.conf` - Git exposure vulnerability
+✅ `be/prisma/schema.prisma` - Database schema with AdminSecret table
+✅ `be/prisma/seed.js` - Seed data with flags
+
+### Flag Files
+✅ `/home/kaizen/pctfs/nua-sec/med-lab/apps/api/secrets/flag.txt`
