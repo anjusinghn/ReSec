@@ -55,3 +55,31 @@ model Review {
 
 model Order {
   id         Int         @id @default(autoincrement())
+  userId     Int         @map("user_id")
+  status     String
+  totalCents Int         @map("total_cents")
+  giftNote   String?     @map("gift_note")
+  createdAt  DateTime    @default(now()) @map("created_at")
+  items      OrderItem[]
+  user       User        @relation(fields: [userId], references: [id])
+
+  @@map("order")
+}
+
+model OrderItem {
+  id         Int     @id @default(autoincrement())
+  orderId    Int     @map("order_id")
+  productId  Int     @map("product_id")
+  qty        Int
+  priceCents Int     @map("price_cents")
+  order      Order   @relation(fields: [orderId], references: [id])
+  product    Product @relation(fields: [productId], references: [id])
+
+  @@map("order_item")
+}
+
+model WishlistItem {
+  id        Int     @id @default(autoincrement())
+  userId    Int     @map("user_id")
+  productId Int     @map("product_id")
+  createdAt DateTime @default(now()) @map("created_at")
