@@ -60,3 +60,34 @@ router.get('/download/invoice', async (req, res) => {
 router.post('/upload/profile-picture', async (req, res) => {
   try {
     if (!req.session.userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    
+    const { filename, content } = req.body;
+    
+    if (!filename || !content) {
+      return res.status(400).json({ 
+        error: 'Filename and content required'
+      });
+    }
+    
+    // VULNERABILITY 2: Path traversal through filename parameter
+    
+    // Decode URL encoding (but vulnerable to double encoding)
+    const decodedFilename = decodeURIComponent(filename);
+    
+    const uploadDir = '/app/uploads/profiles';
+    const filePath = path.join(uploadDir, decodedFilename);
+    
+    // Weak validation - blocks ../ but can be bypassed
+    if (decodedFilename.includes('..')) {
+      return res.status(400).json({ 
+        error: 'Invalid filename'
+      });
+    }
+    
+    // VULNERABILITY: Can read files with absolute paths or double encoding
+    // Check if trying to read sensitive files
+    if (decodedFilename.startsWith('/')) {
+      // Absolute path - try to read it
+      try {
