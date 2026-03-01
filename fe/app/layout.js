@@ -47,3 +47,27 @@ export default function RootLayout({ children }) {
                     <h6 className="text-sm font-semibold text-white mb-2">Customer Service</h6>
                     <ul className="space-y-1 text-sm text-slate-400">
                       <li><a href="/orders" className="hover:text-white transition">Track Order</a></li>
+                      <li><a href="/settings" className="hover:text-white transition">Settings</a></li>
+                      <li><a href="/wishlist" className="hover:text-white transition">Wishlist</a></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h6 className="text-sm font-semibold text-white mb-2">Business Tools</h6>
+                    <ul className="space-y-1 text-sm text-slate-400">
+                      <li><a href="/admin/catalog" className="hover:text-white transition">Catalog Import</a></li>
+                      <li><a href="/tools/invoice-parser" className="hover:text-white transition">Invoice Parser</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <hr className="my-6 border-white/10" />
+                <p className="text-center text-sm text-slate-500">
+                  © 2025 Hackazon. All rights reserved. | Built for security research purposes only.
+                </p>
+              </div>
+            </footer>
+          </div>
+        </Providers>
+      </body>
+    </html>
+  );
+}
