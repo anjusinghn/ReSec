@@ -56,3 +56,31 @@ export default async function InvoicePage({ params, searchParams }) {
         <div className="grid md:grid-cols-3 gap-4 justify-end mb-6">
           <div className="md:col-start-3 space-y-1">
             <div className="flex justify-between"><span>Subtotal:</span><span>${(subtotal/100).toFixed(2)}</span></div>
+            <div className="flex justify-between"><span>Tax (8%):</span><span>${(tax/100).toFixed(2)}</span></div>
+            <div className="flex justify-between font-semibold"><span>Total:</span><span>${(total/100).toFixed(2)}</span></div>
+          </div>
+        </div>
+
+        {note && (
+          <div className="rounded bg-black/5 dark:bg-white/5 p-3 mb-4">
+            <h6 className="font-semibold mb-1">Note:</h6>
+            <div dangerouslySetInnerHTML={{ __html: note }} />
+          </div>
+        )}
+
+        <div className="text-center text-sm text-foreground/70 border-t border-black/10 dark:border-white/10 pt-4">
+          Thank you for your business!
+        </div>
+      </div>
+      <style jsx global>{`
+        @media print { .no-print { display: none !important } }
+      `}</style>
+    </div>
+  );
+}
+
+
+
+
+
+
