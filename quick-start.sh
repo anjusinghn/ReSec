@@ -58,3 +58,32 @@ echo -e "${GREEN}✓ Database is ready${NC}"
 echo ""
 
 # Run database migrations
+echo -e "${YELLOW}📋 Running database migrations...${NC}"
+docker exec shopsmart-api npm run prisma:push > /dev/null
+echo ""
+
+# Seed database
+echo -e "${YELLOW}🌱 Seeding database with test data and flags...${NC}"
+docker exec shopsmart-api npm run prisma:seed
+echo ""
+
+# Check service health
+echo -e "${YELLOW}🏥 Checking service health...${NC}"
+sleep 5
+
+# Check backend
+if curl -s http://localhost:4000/health | grep -q "ok"; then
+    echo -e "${GREEN}✓ Backend API is healthy${NC}"
+else
+    echo -e "${RED}✗ Backend API is not responding${NC}"
+fi
+
+# Check frontend (might take longer to start)
+echo -e "${YELLOW}   Waiting for frontend to build...${NC}"
+sleep 10
+if curl -s http://localhost:3000 > /dev/null 2>&1; then
+    echo -e "${GREEN}✓ Frontend is ready${NC}"
+else
+    echo -e "${YELLOW}⚠ Frontend might still be building (check logs)${NC}"
+fi
+
