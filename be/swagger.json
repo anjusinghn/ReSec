@@ -63,3 +63,36 @@
           "200": {
             "description": "Order information returned",
             "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/api/v1/config": {
+      "get": {
+        "summary": "Retrieve platform configuration",
+        "description": "Returns public configuration details. Supplying a particular admin header reveals extended settings.",
+        "parameters": [
+          {
+            "name": "x-admin-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional elevated header documented in internal runbooks (value not published)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Configuration response",
+            "content": {
+              "application/json": {
