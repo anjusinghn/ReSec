@@ -40,3 +40,24 @@ export default function WishlistPage() {
             <div className="p-4">
               <div className="text-xs inline-block px-2 py-1 rounded bg-black/5 dark:bg-white/10 mb-1">{i.category}</div>
               <h3 className="text-sm font-semibold mb-2 line-clamp-2">
+                <Link href={`/product/${i.id}`} className="hover:underline">{i.name}</Link>
+              </h3>
+              <div className="text-blue-600 dark:text-blue-400 font-semibold mb-3">${(i.priceCents/100).toFixed(2)}</div>
+              <div className="grid gap-2">
+                <button disabled={!i.inStock} className={`px-3 py-2 rounded ${i.inStock ? 'bg-blue-600 text-white hover:bg-blue-500' : 'bg-black/10 dark:bg-white/10 text-foreground/60'}`}>{i.inStock?'Add to Cart':'Notify Me'}</button>
+                <Link href={`/product/${i.id}`} className="px-3 py-2 rounded border border-black/10 dark:border-white/10 text-center">View Details</Link>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
