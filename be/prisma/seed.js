@@ -57,3 +57,33 @@ async function main() {
     }
   });
   console.log('✓ Created regular users');
+  const productsFile = pathModule.join(__dirname, 'seed-data', 'products.json');
+  const products = JSON.parse(fs.readFileSync(productsFile, 'utf8'));
+
+  const createdProducts = [];
+  for (const product of products) {
+    const created = await prisma.product.create({
+      data: product
+    });
+    createdProducts.push(created);
+  }
+  console.log('✓ Created products');
+
+  // Create admin order with flag in giftNote
+  const adminOrder = await prisma.order.create({
+    data: {
+      userId: adminUser.id,
+      status: 'delivered',
+      totalCents: 39998,
+      giftNote: `PCTFS{${uuidv4()}}`, // IDOR FLAG
+      items: {
+        create: [
+          { productId: createdProducts[0].id, qty: 2, priceCents: createdProducts[0].priceCents },
+          { productId: createdProducts[1].id, qty: 1, priceCents: createdProducts[1].priceCents }
+        ]
+      }
+    }
+  });
+  console.log('✓ Created admin order with flag');
+
+  // Create regular orders
