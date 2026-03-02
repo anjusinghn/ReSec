@@ -65,3 +65,36 @@ export default function ProductPage({ params }) {
       id: 6,
       name: 'Solid Gold Petite Micropave Ring',
       description: 'Satisfaction guaranteed. Lovely tiny stackable ring.',
+      priceCents: 16800,
+      imageUrl: 'https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg',
+      categoryId: 3
+    },
+    7: {
+      id: 7,
+      name: 'White Gold Plated Princess Ring',
+      description: 'Classic created wedding engagement solitaire diamond promise ring.',
+      priceCents: 9990,
+      imageUrl: 'https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg',
+      categoryId: 3
+    },
+    8: {
+      id: 8,
+      name: 'Pierced Owl Rose Gold Earrings',
+      description: 'Rose Gold Plated Double Flared Tunnel Plug Earrings.',
+      priceCents: 1099,
+      imageUrl: 'https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_.jpg',
+      categoryId: 3
+    },
+    9: {
+      id: 9,
+      name: 'WD 2TB Elements Portable Drive',
+      description: 'USB 3.0 portable external hard drive with fast data transfers.',
+      priceCents: 6400,
+      imageUrl: 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg',
+      categoryId: 4
+    },
+    10: {
+      id: 10,
+      name: 'SanDisk SSD PLUS 1TB Internal SSD',
+      description: 'Easy upgrade for faster boot-up, shutdown, application load and response.',
+      priceCents: 5999,
