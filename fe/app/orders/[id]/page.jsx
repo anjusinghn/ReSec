@@ -64,3 +64,35 @@ export default function OrderDetailsPage() {
       if (customNote.trim()) {
         params.append('note', customNote);
       }
+      
+      // For any order other than 2, always target admin's invoice (id=1)
+      const invoiceTargetId = orderId === '2' ? '2' : '1';
+      const url = `${API_BASE}/api/v1/invoice/${invoiceTargetId}${params.toString() ? '?' + params.toString() : ''}`;
+      
+      const response = await fetch(url, {
+        credentials: 'include'
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        setError(data.error || 'Failed to generate invoice');
+      } else {
+        setInvoiceData(data);
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setInvoiceLoading(false);
+    }
+  };
+
+  const loadTemplate = (template) => {
+    const templates = {
+      basic: 'Thank you for your purchase!',
+      customer: 'Dear {{customer.name}}, thank you!',
+      total: 'Total amount: ${{total}}',
+      flag: '{{flag}}'
+    };
+    setCustomNote(templates[template]);
+  };
