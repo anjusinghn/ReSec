@@ -35,3 +35,21 @@ export default function SettingsPage() {
             <label key={i} className="flex items-center gap-2 text-sm"><input type="checkbox" defaultChecked={i>0}/> {l}</label>
           ))}
           <button className="px-4 py-2 rounded bg-blue-600 text-white">Save Settings</button>
+        </form>
+
+        <div className="rounded-xl border border-black/10 dark:border-white/10 p-6">
+          <h5 className="font-semibold text-red-600">⚠️ Danger Zone</h5>
+          <p className="text-sm text-foreground/70 mb-3">Permanently delete your account and all associated data. This action cannot be undone.</p>
+          <button className="px-4 py-2 rounded border border-red-500/40 text-red-600">Delete Account</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
