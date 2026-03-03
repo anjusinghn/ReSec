@@ -55,3 +55,32 @@ npm start
 
 - `npm start` - Start everything (Docker + DB seed + Dev servers)
 - `npm run dev` - Start API and Frontend concurrently (assumes Docker is running)
+- `npm run stop` - Stop all services and processes
+- `npm run setup` - Install all dependencies (be, fe, root)
+
+### Docker Commands
+
+- `npm run docker:up` - Start Docker services (DB, Redis, Internal API)
+- `npm run docker:down` - Stop Docker services
+- `npm run docker:logs` - View Docker logs
+
+### Database Commands
+
+- `npm run db:seed` - Push Prisma schema and seed database
+
+### Individual Service Commands
+
+- `npm run dev:api` - Start only the backend API
+- `npm run dev:fe` - Start only the frontend
+
+### Cleanup
+
+- `npm run clean` - Stop Docker and remove database volume (fresh start)
+
+## Service URLs
+
+Once running, access the services at:
+
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:4000
+- **API Health Check**: http://localhost:4000/health
