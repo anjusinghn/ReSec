@@ -43,3 +43,26 @@ def handle_connection(conn: socket.socket, addr, port: int) -> None:
                 conn.sendall(line.encode("ascii"))
             try:
                 _ = conn.recv(1024)
+                time.sleep(random.uniform(0.5, 2.5))
+                conn.sendall(b"530 Login incorrect.\r\n")
+            except (socket.timeout, ConnectionError):
+                pass
+        else:
+            try:
+                conn.sendall(random.choice(GENERIC_RESPONSES).encode("ascii"))
+                _ = conn.recv(1024)
+                time.sleep(random.uniform(0.5, 2.0))
+                conn.sendall(b"Session closed.\n")
+            except (socket.timeout, ConnectionError):
+                pass
+    finally:
+        conn.close()
+        logging.info("Connection from %s on port %s closed", peer, port)
+
+
+def start_listener(port: int) -> None:
+    """Listen on a single port and spawn handlers for incoming connections."""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        sock.bind(("0.0.0.0", port))
+        sock.listen(5)
