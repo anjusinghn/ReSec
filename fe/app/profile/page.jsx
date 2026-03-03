@@ -66,3 +66,37 @@ export default function ProfilePage() {
     };
 
     if (user.displayName) {
+      const parts = user.displayName.split(' ');
+      setFormData({
+        firstName: parts[0] || '',
+        lastName: parts.slice(1).join(' '),
+        username: user.username || '',
+        email: user.email || '',
+        displayName: user.displayName,
+        bio: '',
+        address: baseAddress
+      });
+      return;
+    }
+
+    setFormData({
+      firstName: user.username || '',
+      lastName: '',
+      username: user.username || '',
+      email: user.email || '',
+      displayName: user.displayName || user.username || '',
+      bio: '',
+      address: baseAddress
+    });
+  }, [user, formData]);
+
+  const handleProfilePictureUpload = async (e) => {
+    e.preventDefault();
+    if (!filename.trim()) {
+      setUploadError('Please enter a filename');
+      return;
+    }
+
+    setUploading(true);
+    setUploadError('');
+    setUploadResult(null);
