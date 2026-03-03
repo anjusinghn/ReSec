@@ -62,3 +62,35 @@ export default function AffiliatePortal() {
     }
   };
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(referralLink);
+      setCopied('Link copied!');
+      setTimeout(() => setCopied(''), 1600);
+    } catch {
+      setCopied('Unable to copy—select manually.');
+      setTimeout(() => setCopied(''), 1600);
+    }
+  };
+
+  const handleTestRedirect = () => {
+    if (linkModified) {
+      alert(`Flag: ${FLAG}`);
+    }
+    window.open(referralLink, '_blank', 'noopener,noreferrer');
+  };
+
+  useEffect(() => {
+    const marker = searchParams.get('notice');
+    if (marker === 'external-blocked') {
+      setNotice('External redirect blocked. External domains are disabled in this lab environment.');
+    } else {
+      setNotice('');
+    }
+  }, [searchParams]);
+
+  return (
+    <div className="min-h-screen bg-slate-950">
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.35),rgba(15,23,42,0.95)_60%)]" />
+        <div className="relative container mx-auto px-4 py-16 md:py-20 text-white">

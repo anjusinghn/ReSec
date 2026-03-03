@@ -60,3 +60,34 @@ export default function InvoiceParserPage() {
 
   const loadSampleInvoice = (type) => {
     const samples = {
+      single: `<invoices>
+  <invoice id="INV-001">
+    <customer>Alice Smith</customer>
+    <amount>149.99</amount>
+    <date>2025-01-15</date>
+    <items>
+      <item>Coffee Maker</item>
+    </items>
+  </invoice>
+</invoices>`,
+      multiple: `<invoices>
+  <invoice id="INV-002">
+    <customer>Bob Johnson</customer>
+    <amount>89.50</amount>
+    <date>2025-01-14</date>
+    <items>
+      <item>Book</item>
+      <item>Notebook</item>
+    </items>
+  </invoice>
+  <invoice id="INV-003">
+    <customer>Carol White</customer>
+    <amount>299.99</amount>
+    <date>2025-01-13</date>
+    <items>
+      <item>Tablet</item>
+    </items>
+  </invoice>
+</invoices>`,
+      detailed: `<invoices>
+  <invoice id="INV-004">
