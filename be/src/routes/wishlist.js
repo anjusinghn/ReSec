@@ -57,3 +57,32 @@ router.post('/wishlist', async (req, res) => {
     
     res.json(item);
   } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Remove from wishlist
+router.delete('/wishlist/:id', async (req, res) => {
+  try {
+    if (!req.session.userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    
+    await prisma.wishlistItem.delete({
+      where: {
+        id: parseInt(req.params.id),
+        userId: req.session.userId
+      }
+    });
+    
+    res.json({ message: 'Removed from wishlist' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
+
+
+
