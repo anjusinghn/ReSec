@@ -49,3 +49,29 @@ router.post('/reviews', async (req, res) => {
     const xssDetected = typeof text === 'string' && xssPattern.test(text);
     const flagValue = process.env.XSS_STORED_FLAG || 'PCTFS{stored_xss_alert_flag}';
 
+    const review = {
+      id: Date.now(),
+      userId: req.session.userId,
+      productId: parsedProductId,
+      rating: parseInt(rating) || 0,
+      text,
+      createdAt: new Date().toISOString(),
+      user
+    };
+
+    res.json({
+      review,
+      persisted: false,
+      message: xssDetected
+        ? 'XSS payload detected — returning flag and skipping persistence.'
+        : 'Review accepted locally only (not persisted server-side).',
+      flag: xssDetected ? flagValue : undefined
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Admin moderation endpoint - RENDERS WITH DANGEROUSLYSETINNERHTML
+router.get('/reviews/admin/moderate', async (req, res) => {
+  try {
