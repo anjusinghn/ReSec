@@ -56,3 +56,32 @@ router.post('/admin/import', async (req, res) => {
       const parsed = parser.parse(resolvedXml);
       
       const products = [];
+      if (parsed.products && parsed.products.product) {
+        const productData = Array.isArray(parsed.products.product) 
+          ? parsed.products.product 
+          : [parsed.products.product];
+        
+        productData.forEach(product => {
+          products.push({
+            content: typeof product === 'string' ? product : JSON.stringify(product),
+            raw: typeof product === 'string' ? product : JSON.stringify(product)
+          });
+        });
+      }
+
+      const response = {
+        message: 'Import processed',
+        count: products.length,
+        products: products
+      };
+
+      if (flagDisclosure) {
+        response.flag = process.env.XXE_FLAG || 'PCTFS{xxe_file_read_external_entity}';
+      }
+
+      res.json(response);
+    } catch (xmlError) {
+      res.status(400).json({ 
+        error: 'XML parsing error',
+        details: xmlError.message
+      });
