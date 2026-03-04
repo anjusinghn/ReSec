@@ -63,3 +63,35 @@ router.post('/orders/:id/send-confirmation', async (req, res) => {
   </div>
   <div class="content">
     <p>Dear <%= customerName %>,</p>
+    <p>Thank you for your order! Your order #<%= orderId %> has been confirmed.</p>
+    
+    <h3>Order Details:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% items.forEach(function(item) { %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td><%= item.qty %></td>
+          <td>$<%= (item.priceCents / 100).toFixed(2) %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    
+    <p><strong>Total: $<%= (totalCents / 100).toFixed(2) %></strong></p>
+    
+    <p>We'll send you another email when your order ships.</p>
+    
+    <p>Best regards,<br>The Hackazon Team</p>
+  </div>
+  <div class="footer">
+    <p>&copy; 2025 Hackazon. All rights reserved.</p>
+  </div>
+</body>
