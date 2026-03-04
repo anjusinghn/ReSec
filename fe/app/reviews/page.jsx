@@ -57,3 +57,32 @@ export default function ReviewsPage() {
                 <div className="col-span-10">
                   <div className="flex items-start justify-between">
                     <div>
+                      <Link href={`/product/${r.productId}`} className="font-semibold hover:underline">{r.productName}</Link>
+                      <div className="text-amber-500">{'⭐'.repeat(r.rating)}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xs text-foreground/70">{r.date}</div>
+                      <span className="text-xs px-2 py-1 rounded bg-green-500/20 text-green-700 dark:text-green-300">Published</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-foreground/80 mt-2">{r.text}</p>
+                  <div className="flex gap-2 mt-2">
+                    <button className="px-3 py-2 rounded border border-black/10 dark:border-white/10">Edit</button>
+                    <button className="px-3 py-2 rounded border border-red-500/40 text-red-600">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+
+
+
+
+
