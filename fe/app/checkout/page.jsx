@@ -52,3 +52,30 @@ export default function CheckoutPage() {
             <div className="text-sm text-foreground/70">Shipping to John Doe, 123 Main Street, NY</div>
             <label className="inline-flex items-center gap-2 text-sm"><input type="checkbox" required/> I agree to the terms</label>
             <div className="flex gap-2"><button type="button" onClick={()=>setStep(2)} className="px-4 py-2 rounded border">Back</button><button disabled={loading} className="px-4 py-2 rounded bg-green-600 text-white">{loading?'Processing…':'Place Order'}</button></div>
+          </form>
+        )}
+      </div>
+
+      <div className="rounded-xl border border-black/10 dark:border-white/10 p-4 h-fit">
+        <h5 className="font-semibold mb-3">Order Summary</h5>
+        <div className="space-y-2 mb-3 text-sm">
+          {cartItems.map(i => (
+            <div key={i.id} className="flex items-center justify-between"><span>{i.name} × {i.qty}</span><span>${((i.priceCents*i.qty)/100).toFixed(2)}</span></div>
+          ))}
+        </div>
+        <div className="flex justify-between mb-1 text-sm"><span>Subtotal</span><span>${(subtotal/100).toFixed(2)}</span></div>
+        <div className="flex justify-between mb-1 text-sm"><span>Shipping</span><span>${(shipping/100).toFixed(2)}</span></div>
+        <div className="flex justify-between mb-2 text-sm"><span>Tax</span><span>${(tax/100).toFixed(2)}</span></div>
+        <hr className="my-2" />
+        <div className="flex justify-between font-semibold"><span>Total</span><span>${(total/100).toFixed(2)}</span></div>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
