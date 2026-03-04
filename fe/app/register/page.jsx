@@ -56,3 +56,32 @@ export default function RegisterPage() {
         localStorage.setItem('sessionUser', JSON.stringify({
           id: data.id,
           username: data.username,
+          email: data.email,
+          role: data.role,
+          displayName: `${firstName} ${lastName}`.trim() || data.username,
+        }));
+        window.dispatchEvent(new Event('session-sync'));
+      }
+
+      setSuccess(true);
+      // Redirect to home after 2 seconds
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (success) {
+    return (
+      <div className="container mx-auto px-4 py-12 max-w-md text-center">
+        <div className="rounded-xl border border-black/10 dark:border-white/10 p-8">
+          <div className="text-6xl mb-3">✅</div>
+          <h3 className="text-xl font-bold mb-2">Account Created!</h3>
+          <p className="text-foreground/70 mb-4">You can now sign in and start shopping.</p>
+          <Link href="/login" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500 inline-block">Go to Login</Link>
+        </div>
+      </div>

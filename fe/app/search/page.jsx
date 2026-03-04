@@ -61,3 +61,34 @@ export default function SearchPage() {
         <button type="submit" className="px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">🔍 Search</button>
       </form>
 
+      {error && (
+        <div className="mb-4 rounded-xl border border-red-500/40 bg-red-500/10 p-4">
+          <h4 className="font-semibold text-red-700 dark:text-red-300 mb-1">Error</h4>
+          <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+        </div>
+      )}
+
+      {loading ? (
+        <div className="text-center py-12">Loading...</div>
+      ) : q || category ? (
+        products.length > 0 ? (
+          <div>
+            <p className="text-sm text-foreground/70 mb-4">Found {products.length} products</p>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {products.map((p) => (
+                <div key={p.id} className="rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 overflow-hidden shadow-sm">
+                  <div className="relative pt-[100%]">
+                    <img 
+                      src={p.image_url || p.imageUrl || `https://placehold.co/300x300/3b82f6/fff?text=Product`} 
+                      alt={p.name} 
+                      className="absolute inset-0 w-full h-full object-cover" 
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-sm font-semibold mb-2 line-clamp-2">{p.name}</h3>
+                    {p.description && (
+                      <p className="text-xs text-foreground/70 mb-2 line-clamp-3">{p.description}</p>
+                    )}
+                    <div className="flex items-center justify-between">
+                      <div className="text-blue-600 dark:text-blue-400 font-semibold">
+                        ${((p.price_cents || p.priceCents || 0)/100).toFixed(2)}
