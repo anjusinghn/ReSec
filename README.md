@@ -66,3 +66,36 @@
 ### 1. Clone the Repository
 ```bash
 git clone <repo-url>
+cd med-lab
+```
+
+### 2. Start All Services
+```bash
+# Start Docker services
+docker-compose up -d
+
+# Wait for services to initialize
+sleep 10
+
+# Seed database with test data and flags
+docker exec shopsmart-api npm run prisma:seed
+```
+
+### 3. Verify Services
+```bash
+# Check health
+curl http://localhost:4000/health
+
+# View logs
+docker-compose logs -f
+```
+
+### 4. Access the Application
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:4000
+- **Nginx Proxy**: http://localhost
+
+### 5. Test Credentials
+```
+Admin:  admin@shopsmart.com / admin123
+User 1: john@example.com / password123
