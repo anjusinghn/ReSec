@@ -52,3 +52,29 @@ export default function CartPage() {
             </div>
             <div className="col-span-2 flex items-center gap-1">
               <button onClick={()=>updateQty(i.id, i.qty-1)} className="px-2 py-1 rounded border">-</button>
+              <input readOnly value={i.qty} className="w-12 text-center px-2 py-1 rounded border" />
+              <button onClick={()=>updateQty(i.id, i.qty+1)} className="px-2 py-1 rounded border">+</button>
+            </div>
+            <div className="col-span-1 text-right font-semibold">${((i.priceCents*i.qty)/100).toFixed(2)}</div>
+            <button onClick={()=>remove(i.id)} className="col-span-1 text-right text-red-600">🗑️</button>
+          </div>
+        ))}
+      </div>
+      <div className="rounded-xl border border-black/10 dark:border-white/10 p-4 h-fit">
+        <h5 className="font-semibold mb-3">Order Summary</h5>
+        <div className="flex justify-between mb-1 text-sm"><span>Subtotal</span><span>${(subtotal/100).toFixed(2)}</span></div>
+        <div className="flex justify-between mb-1 text-sm"><span>Shipping</span><span>${(shipping/100).toFixed(2)}</span></div>
+        <div className="flex justify-between mb-2 text-sm"><span>Tax</span><span>${(tax/100).toFixed(2)}</span></div>
+        <hr className="my-2" />
+        <div className="flex justify-between mb-3 font-semibold"><span>Total</span><span>${(total/100).toFixed(2)}</span></div>
+        <Link href="/checkout" className="block w-full text-center px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Proceed to Checkout</Link>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+

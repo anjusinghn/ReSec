@@ -62,3 +62,35 @@ router.post('/admin/debug', (req, res) => {
     if (!pin || !code) {
       return res.status(400).json({
         error: 'PIN and code required',
+        description: 'Werkzeug Debug Console - Protected by PIN',
+        common_pins: ['0000', '1111', '1234', '9999'],
+        usage: 'Send {"pin":"XXXX","code":"your_javascript_code"}'
+      });
+    }
+    
+    // VULNERABILITY 1: Weak predictable PIN (like Werkzeug's weak PIN generation)
+    if (pin !== '1234') {
+      return res.status(403).json({ 
+        error: 'Invalid PIN',
+        attempts_remaining: 'unlimited'
+      });
+    }
+    
+    // VULNERABILITY 2: eval() allows arbitrary code execution
+    // BUT: Use VM sandbox to isolate from process.env and other flags
+    const vm = require('vm');
+    
+    const debug_secrets = {
+      console_flag: process.env.VULN_COMPONENT_FLAG || 'PCTFS{eval_debug_console_rce}',
+      debug_mode: true,
+      internal_api_key: 'DEBUG_KEY_12345',
+      version: '1.0.0'
+    };
+    
+    try {
+      // Create isolated sandbox context
+      // Only debug_secrets is accessible, not process.env or require
+      const sandbox = {
+        debug_secrets: debug_secrets,
+        // Allow basic utilities
+        JSON: JSON,
