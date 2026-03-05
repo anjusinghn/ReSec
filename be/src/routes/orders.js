@@ -49,3 +49,29 @@ router.get('/orders/:id', async (req, res) => {
     
     if (rows.length === 0) {
       return res.status(404).json({ error: 'Order not found' });
+    }
+    
+    // Get order items
+    const items = await prisma.orderItem.findMany({
+      where: { orderId: parseInt(rows[0].id) },
+      include: { product: true }
+    });
+    
+    res.json({
+      ...rows[0],
+      items
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message, detail: error.detail });
+  }
+});
+
+// Create order
+router.post('/orders', async (req, res) => {
+  try {
+    if (!req.session.userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    
+    const { items, giftNote } = req.body;
+    
