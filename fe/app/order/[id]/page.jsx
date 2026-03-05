@@ -54,3 +54,31 @@ export default async function OrderDetailPage({ params }) {
               {order.shippingAddress.name}<br />
               {order.shippingAddress.street}<br />
               {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zip}<br />
+              {order.shippingAddress.country}
+            </p>
+          </div>
+          <div className="rounded-xl border border-black/10 dark:border-white/10 p-4">
+            <h6 className="font-semibold mb-2">Order Summary</h6>
+            <div className="flex justify-between text-sm mb-1"><span>Subtotal</span><span>${(subtotal/100).toFixed(2)}</span></div>
+            <div className="flex justify-between text-sm mb-1"><span>Shipping</span><span>${(shipping/100).toFixed(2)}</span></div>
+            <div className="flex justify-between text-sm mb-2"><span>Tax</span><span>${(tax/100).toFixed(2)}</span></div>
+            <hr className="my-2" />
+            <div className="flex justify-between font-semibold"><span>Total</span><span>${(order.totalCents/100).toFixed(2)}</span></div>
+          </div>
+          <div className="grid gap-2">
+            <Link href={`/invoice/${order.id}`} className="px-3 py-2 rounded border border-black/10 dark:border-white/10 text-center">View Invoice</Link>
+            <button className="px-3 py-2 rounded border border-black/10 dark:border-white/10">Download Receipt</button>
+            <button className="px-3 py-2 rounded border border-red-500/40 text-red-600">Request Return</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+

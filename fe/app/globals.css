@@ -42,3 +42,24 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
+  z-index: -2;
+  opacity: 0.85;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.65), rgba(2, 6, 23, 0.95)),
+    radial-gradient(circle at 60% -10%, rgba(99, 102, 241, 0.3), transparent 60%);
+}
+
+.theme-backdrop-secondary {
+  z-index: -3;
+  opacity: 1;
+  background: var(--ambient-primary), var(--ambient-secondary), var(--ambient-tertiary),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.8), rgba(2, 6, 23, 1));
+  filter: blur(40px);
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: #f8fafc;
+}
