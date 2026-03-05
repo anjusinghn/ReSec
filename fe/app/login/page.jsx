@@ -48,3 +48,28 @@ export default function LoginPage() {
         }));
         window.dispatchEvent(new Event('session-sync'));
       }
+
+      // Redirect to home on success
+      router.push('/');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-12 max-w-md">
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-extrabold mb-2">Welcome Back</h1>
+        <p className="text-foreground/70">Sign in to your Hackazon account</p>
+      </div>
+
+      {error && (
+        <div className="mb-4 rounded border border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300 p-3">
+          {error}
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
