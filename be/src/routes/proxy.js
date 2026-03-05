@@ -36,3 +36,22 @@ router.get('/proxy', async (req, res) => {
         // Check if the response contains the flag
         if (data.includes('PCTFS{')) {
           res.setHeader('Content-Type', 'application/json');
+          res.json({ data, flag: 'FLAG_FOUND' });
+        } else {
+          res.setHeader('Content-Type', proxyRes.headers['content-type'] || 'text/plain');
+          res.send(data);
+        }
+      });
+    }).on('error', (err) => {
+      res.status(500).json({ error: err.message });
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
+
+
+
