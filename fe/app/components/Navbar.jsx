@@ -57,3 +57,32 @@ export default function Navbar() {
         }
       } catch {
         // ignore network errors, navbar will rely on local cache
+      }
+    };
+
+    syncCart();
+    syncSession();
+    fetchSession();
+
+    const handleStorage = (event) => {
+      if (!event.key || ['cart', 'sessionUser'].includes(event.key)) {
+        syncCart();
+        syncSession();
+      }
+    };
+
+    const handleSessionSync = () => syncSession();
+
+    window.addEventListener('storage', handleStorage);
+    window.addEventListener('session-sync', handleSessionSync);
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('session-sync', handleSessionSync);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000';
+    try {
+      fetch(`${API_BASE}/api/v1/auth/logout`, {
+        method: 'POST',
