@@ -53,3 +53,30 @@ router.get('/products/search', async (req, res) => {
     }
     
     const whereClause = conditions.length > 0 
+      ? `WHERE ${conditions.join(' AND ')}`
+      : '';
+    
+    const sql = `
+      SELECT * 
+      FROM product
+      ${whereClause}
+      ORDER BY id DESC
+      LIMIT 20
+    `;
+    
+    const { rows } = await pool.query(sql);
+    
+    res.json({
+      items: rows,
+      query: q,
+      category
+    });
+  } catch (error) {
+    // Intentionally expose error details
+    res.status(500).json({ error: error.message, detail: error.detail });
+  }
+});
+
+// Get product suggestions (for autocomplete)
+router.get('/products/suggest', async (req, res) => {
+  try {
