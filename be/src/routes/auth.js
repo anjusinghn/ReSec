@@ -78,3 +78,29 @@ router.post('/auth/login', async (req, res) => {
       id: user.id,
       username: user.username,
       email: user.email,
+      role: user.role,
+      displayName: user.displayName
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Logout
+router.post('/auth/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Logout failed' });
+    }
+    res.json({ message: 'Logged out successfully' });
+  });
+});
+
+// Get current user
+router.get('/auth/me', async (req, res) => {
+  try {
+    if (!req.session.userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+    
+    const user = await prisma.user.findUnique({
