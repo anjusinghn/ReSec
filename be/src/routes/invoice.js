@@ -60,3 +60,34 @@ function renderNoteTemplate(template, context) {
 
 // Get invoice data - INTENTIONALLY VULNERABLE TO SSTI
 router.get('/invoice/:id', async (req, res) => {
+  try {
+    const { note } = req.query;
+    
+    // Get order data
+    const order = await prisma.order.findUnique({
+      where: { id: parseInt(req.params.id) },
+      include: {
+        user: true,
+        items: {
+          include: {
+            product: true
+          }
+        }
+      }
+    });
+    
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+    
+    const invoiceData = {
+      id: order.id,
+      invoiceNumber: `INV-2025-${order.id}`,
+      date: order.createdAt.toISOString().split('T')[0],
+      customer: {
+        name: order.user.displayName || order.user.username,
+        email: order.user.email
+      },
+      items: order.items.map(item => ({
+        description: item.product.name,
+        qty: item.qty,
