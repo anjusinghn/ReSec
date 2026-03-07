@@ -48,3 +48,27 @@ export default function ContactPage() {
           <label className="block text-sm font-medium mb-1">Message</label>
           <textarea rows={6} className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background" required />
         </div>
+        <div className="md:col-span-2">
+          <button className="w-full px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Send Message</button>
+        </div>
+      </form>
+
+      <div className="grid md:grid-cols-3 gap-4">
+        {[{icon:'📧', title:'Email Us', text:'support@shopsmart.com'},{icon:'📞', title:'Call Us', text:'+1 (555) 123-4567'},{icon:'💬', title:'Live Chat', text:'Available 24/7'}].map((c,i)=>(
+          <div key={i} className="text-center rounded-xl border border-black/10 dark:border-white/10 p-6">
+            <div className="text-5xl mb-2">{c.icon}</div>
+            <h6 className="font-semibold">{c.title}</h6>
+            <p className="text-sm text-foreground/70">{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
