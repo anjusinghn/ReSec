@@ -64,3 +64,36 @@ async function getFeaturedProducts() {
       if (withImages.length === 4) {
         return withImages;
       }
+    }
+  } catch (err) {
+    console.error('Failed to load featured products:', err);
+  }
+  return FALLBACK_FEATURED;
+}
+
+export default async function Home() {
+  const products = await getFeaturedProducts();
+  const heroProduct =
+    products.length > 0
+      ? products[Math.floor(Math.random() * products.length)]
+      : FALLBACK_FEATURED[0];
+  const heroLink = heroProduct?.id ? `/product/${heroProduct.id}` : '/products';
+
+  return (
+    <>
+      <section className="relative overflow-hidden">
+        <div className="bg-slate-900 text-white">
+          <div className="container mx-auto px-4 py-16">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">Welcome to Hackazon</h1>
+                <p className="text-white/90 text-lg mb-6">Discover amazing products at unbeatable prices. Shop the latest tech, accessories, and more with fast shipping and secure checkout.</p>
+                <div className="flex gap-3">
+                  <Link
+                    href="/products"
+                    className="inline-flex items-center justify-center rounded-md bg-blue-900 text-white px-4 py-2 text-sm font-semibold border border-white/20 hover:bg-blue-800 transition"
+                  >
+                    Shop Now
+                  </Link>
+                  <Link href="/about" className="inline-flex items-center justify-center rounded-md border border-white/50 px-4 py-2 text-sm font-semibold hover:bg-white/10">Learn More</Link>
+                </div>
