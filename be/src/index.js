@@ -45,3 +45,26 @@ app.use(session({
 }));
 
 // Request logging
+app.use((req, res, next) => {
+  logger.info({ method: req.method, url: req.url, ip: req.ip });
+  next();
+});
+
+// Routes
+app.use('/api/v1', require('./routes/auth'));
+app.use('/api/v1', require('./routes/users'));
+app.use('/api/v1', require('./routes/products'));
+app.use('/api/v1', require('./routes/orders'));
+app.use('/api/v1', require('./routes/reviews'));
+app.use('/api/v1', require('./routes/wishlist'));
+app.use('/api/v1', require('./routes/cart'));
+app.use('/api/v1', require('./routes/config'));
+app.use('/api/v1', require('./routes/admin'));
+app.use('/api/v1', require('./routes/proxy'));
+app.use('/api/v1', require('./routes/webhooks'));
+app.use('/api/v1', require('./routes/invoice'));
+app.use('/api/v1', require('./routes/xml'));
+app.use('/api/v1', require('./routes/email'));
+app.use('/api/v1', require('./routes/download'));
+
+// Expose OpenAPI document for recon
