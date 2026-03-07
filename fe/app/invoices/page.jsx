@@ -89,3 +89,33 @@ export default function InvoicesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                 {commonInvoices.map((invoice) => (
                   <button
+                    key={invoice}
+                    onClick={() => {
+                      setSelectedFile(invoice);
+                      setCustomFile('');
+                    }}
+                    className={`text-left px-3 py-2 rounded border text-sm transition ${
+                      selectedFile === invoice
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                        : 'border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    📄 {invoice}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t pt-4">
+              <label className="block text-sm font-semibold mb-2">Custom Filename</label>
+              <input
+                type="text"
+                value={customFile}
+                onChange={(e) => {
+                  setCustomFile(e.target.value);
+                  setSelectedFile('');
+                }}
+                placeholder="Enter filename (e.g., special_report.pdf)"
+                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-sm"
+              />
+              <p className="text-xs text-gray-500 mt-1">
