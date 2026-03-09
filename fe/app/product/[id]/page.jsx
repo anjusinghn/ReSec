@@ -98,3 +98,36 @@ export default function ProductPage({ params }) {
       name: 'SanDisk SSD PLUS 1TB Internal SSD',
       description: 'Easy upgrade for faster boot-up, shutdown, application load and response.',
       priceCents: 5999,
+      imageUrl: 'https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg',
+      categoryId: 4
+    }
+  };
+  const xssPattern = /<|>|on\w+=|javascript:|alert\s*\(|script|svg|img/i;
+  const defaultFlag = process.env.NEXT_PUBLIC_XSS_REFLECTED_FLAG || 'PCTFS{reflected_xss_alert_flag}';
+
+  useEffect(() => {
+    if (!productId) return;
+    fetchProduct(productId);
+  }, [productId]);
+
+  useEffect(() => {
+    if (error && errorFlag) {
+      alert(`Flag: ${errorFlag}`);
+    }
+  }, [error, errorFlag]);
+
+  const fetchProduct = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:4000/api/v1/products/${encodeURIComponent(id)}`);
+      if (!res.ok) {
+        let payload;
+        try {
+          payload = await res.json();
+        } catch {
+          payload = {};
+        }
+        const flagFromServer = payload?.xssFlag || res.headers.get('x-xss-flag');
+        const err = new Error(`Product "${id}" not found`);
+        if (flagFromServer) {
+          err.xssFlag = flagFromServer;
+        }
