@@ -94,3 +94,35 @@ export default function CatalogImportPage() {
           <h1 className="text-3xl font-bold">Admin Catalog Import</h1>
           <p className="text-foreground/70 mt-2">
             Import product catalogs in XML format. This tool processes XML data and adds products to the database.
+          </p>
+        </div>
+
+        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-md p-4">
+          <div className="flex items-start">
+            <div className="text-amber-600 dark:text-amber-400 mr-3">⚠️</div>
+            <div>
+              <h3 className="font-semibold text-amber-800 dark:text-amber-200">Admin Access Required</h3>
+              <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                This feature requires admin privileges. The system will validate your access automatically.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+          <form onSubmit={handleImport} className="space-y-4">
+            <div>
+              <label className="block text-sm font-semibold mb-2">XML Catalog Data</label>
+              <textarea
+                value={xmlData}
+                onChange={(e) => setXmlData(e.target.value)}
+                rows={12}
+                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 font-mono text-sm"
+                placeholder="Enter XML catalog data..."
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => loadSampleXml('basic')}

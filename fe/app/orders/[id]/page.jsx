@@ -96,3 +96,36 @@ export default function OrderDetailsPage() {
     };
     setCustomNote(templates[template]);
   };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/3 mb-6"></div>
+            <div className="space-y-4">
+              <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded"></div>
+              <div className="h-32 bg-gray-200 dark:bg-gray-700 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-8 text-center">
+            <div className="text-6xl mb-4">🔒</div>
+            <h1 className="text-2xl font-bold text-red-800 dark:text-red-200 mb-2">Access Restricted</h1>
+            <p className="text-red-600 dark:text-red-300 mb-6">{error}</p>
+            <div className="space-x-4">
+              <Link href="/orders/2" className="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                View Your Orders
+              </Link>
+              <Link href="/" className="inline-block px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800">
+                Back to Home
+              </Link>
+            </div>
