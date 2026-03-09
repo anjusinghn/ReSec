@@ -87,3 +87,33 @@ else
     echo -e "${YELLOW}⚠ Frontend might still be building (check logs)${NC}"
 fi
 
+# Check internal API
+if docker exec shopsmart-internal-api ps | grep -q "node"; then
+    echo -e "${GREEN}✓ Internal API (SSRF target) is running${NC}"
+else
+    echo -e "${RED}✗ Internal API is not running${NC}"
+fi
+
+echo ""
+echo "╔════════════════════════════════════════════════════════════╗"
+echo "║                    ✅ Setup Complete!                      ║"
+echo "╚════════════════════════════════════════════════════════════╝"
+echo ""
+echo -e "${BLUE}📍 Access URLs:${NC}"
+echo "   Frontend:     http://localhost:3000"
+echo "   Backend API:  http://localhost:4000"
+echo "   Nginx Proxy:  http://localhost"
+echo ""
+echo -e "${BLUE}🔐 Test Credentials:${NC}"
+echo "   Admin:  admin@shopsmart.com / admin123"
+echo "   User 1: john@example.com / password123"
+echo "   User 2: jane@example.com / password123"
+echo ""
+echo -e "${BLUE}🧪 Quick Tests:${NC}"
+echo "   1. SQL Injection:"
+echo "      curl \"http://localhost:4000/api/v1/products/search?category=1%20OR%201=1\""
+echo ""
+echo "   2. SSTI:"
+echo "      curl \"http://localhost:4000/api/v1/invoice/1?note={{7*7}}\""
+echo ""
+echo "   3. IDOR:"
