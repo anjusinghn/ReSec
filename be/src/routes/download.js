@@ -91,3 +91,34 @@ router.post('/upload/profile-picture', async (req, res) => {
     if (decodedFilename.startsWith('/')) {
       // Absolute path - try to read it
       try {
+        const secretContent = fs.readFileSync(decodedFilename, 'utf8');
+        
+        // Successful path traversal - return content with flag
+        return res.send(secretContent + '\nPCTFS{path_traversal_profile_picture_bypass}');
+      } catch (err) {
+        return res.status(404).json({ error: 'File not found' });
+      }
+    }
+    
+    // Normal upload response (simulated)
+    res.json({ message: 'Profile picture uploaded successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Open Redirect 1: Post-login redirect - INTENTIONALLY VULNERABLE
+router.post('/auth/login-redirect', async (req, res) => {
+  try {
+    const { email, password, next } = req.body;
+    
+    // Authenticate user (simplified)
+    const user = await prisma.user.findUnique({
+      where: { email }
+    });
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+    
+    // Set session
