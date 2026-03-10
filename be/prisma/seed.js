@@ -87,3 +87,32 @@ async function main() {
   console.log('✓ Created admin order with flag');
 
   // Create regular orders
+  await prisma.order.create({
+    data: {
+      userId: user1.id,
+      status: 'shipped',
+      totalCents: 12998,
+      items: {
+        create: [
+          { productId: createdProducts[2].id, qty: 1, priceCents: createdProducts[2].priceCents },
+          { productId: createdProducts[3].id, qty: 1, priceCents: createdProducts[3].priceCents }
+        ]
+      }
+    }
+  });
+
+  await prisma.order.create({
+    data: {
+      userId: user2.id,
+      status: 'pending',
+      totalCents: 7999,
+      items: {
+        create: [
+          { productId: createdProducts[6].id, qty: 1, priceCents: createdProducts[6].priceCents }
+        ]
+      }
+    }
+  });
+  console.log('✓ Created user orders');
+
+  // Create admin secret with SQLi flag
