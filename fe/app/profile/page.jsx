@@ -100,3 +100,36 @@ export default function ProfilePage() {
     setUploading(true);
     setUploadError('');
     setUploadResult(null);
+
+    try {
+      const response = await fetch(`${API_BASE}/api/v1/upload/profile-picture`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          filename: filename,
+          content: 'profile_picture_data',
+        }),
+      });
+
+      const contentType = response.headers.get('content-type') || '';
+      let data;
+      if (contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        data = { raw: text };
+      }
+
+      setUploadResult({
+        status: response.status,
+        data,
+      });
+
+      if (!response.ok && data && typeof data === 'object' && data.error) {
+        setUploadError(data.error || 'Upload failed');
+      }
+    } catch (err) {
+      setUploadError(err.message);
