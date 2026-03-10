@@ -91,3 +91,34 @@ export default function InvoiceParserPage() {
 </invoices>`,
       detailed: `<invoices>
   <invoice id="INV-004">
+    <customer>David Brown</customer>
+    <email>david@example.com</email>
+    <amount>459.99</amount>
+    <tax>36.80</tax>
+    <total>496.79</total>
+    <date>2025-01-12</date>
+    <billing_address>
+      <street>123 Main St</street>
+      <city>New York</city>
+      <zip>10001</zip>
+    </billing_address>
+    <items>
+      <item quantity="1" price="459.99">Gaming Monitor</item>
+    </items>
+  </invoice>
+</invoices>`
+    };
+    setXmlData(samples[type]);
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-10 max-w-4xl">
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold">Invoice Parser Tool</h1>
+          <p className="text-foreground/70 mt-2">
+            Parse and validate XML invoice data. This tool helps process invoice files from various sources and formats.
+          </p>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md p-4">
