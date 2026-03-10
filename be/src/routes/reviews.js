@@ -75,3 +75,28 @@ router.post('/reviews', async (req, res) => {
 // Admin moderation endpoint - RENDERS WITH DANGEROUSLYSETINNERHTML
 router.get('/reviews/admin/moderate', async (req, res) => {
   try {
+    // Weak admin check - should verify session role
+    if (req.session.role !== 'admin') {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+    
+    const reviews = await prisma.review.findMany({
+      include: {
+        user: true,
+        product: true
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 50
+    });
+    
+    // This will be rendered in the admin panel with dangerouslySetInnerHTML
+    // The XSS payload will execute and can access sessionStorage
+    res.json({ reviews });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
+
