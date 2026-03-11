@@ -85,3 +85,32 @@ export default function RegisterPage() {
           <Link href="/login" className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500 inline-block">Go to Login</Link>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-12 max-w-lg">
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-extrabold mb-2">Create Account</h1>
+        <p className="text-foreground/70">Join Hackazon and start shopping today</p>
+      </div>
+
+      {error && (
+        <div className="mb-4 rounded border border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300 p-3">
+          {error}
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
+        className="rounded-xl border border-black/10 dark:border-white/10 p-6 grid md:grid-cols-2 gap-3"
+      >
+        <div>
+          <label className="block text-sm font-medium mb-1">First Name</label>
+          <input name="firstName" required className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Last Name</label>
+          <input name="lastName" required className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background" />
+        </div>
+        <div className="md:col-span-2">
