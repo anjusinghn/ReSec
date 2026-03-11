@@ -92,3 +92,34 @@ export default function SearchPage() {
                     <div className="flex items-center justify-between">
                       <div className="text-blue-600 dark:text-blue-400 font-semibold">
                         ${((p.price_cents || p.priceCents || 0)/100).toFixed(2)}
+                      </div>
+                      <Link href={`/product/${p.id}`} className="text-sm px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">View</Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-xl border border-black/10 dark:border-white/10 p-10 text-center">
+            <div className="text-5xl mb-3">🔍</div>
+            <h4 className="text-lg font-semibold mb-1">No Results Found</h4>
+            <p className="text-foreground/70 mb-3">Try different keywords or browse our categories</p>
+            <Link href="/products" className="inline-block px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Browse All Products</Link>
+          </div>
+        )
+      ) : (
+        <div className="rounded-xl border border-black/10 dark:border-white/10 p-10 text-center">
+          <div className="text-5xl mb-3">🔍</div>
+          <h4 className="text-lg font-semibold mb-1">Start Your Search</h4>
+          <p className="text-foreground/70">Enter keywords above to find products</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+
+
+
