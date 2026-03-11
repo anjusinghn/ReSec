@@ -66,3 +66,25 @@ def start_listener(port: int) -> None:
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind(("0.0.0.0", port))
         sock.listen(5)
+        logging.info("Decoy listener active on port %s", port)
+        while True:
+            conn, addr = sock.accept()
+            threading.Thread(
+                target=handle_connection, args=(conn, addr, port), daemon=True
+            ).start()
+
+
+def main() -> None:
+    listeners = []
+    for port in PORTS:
+        thread = threading.Thread(target=start_listener, args=(port,), daemon=True)
+        listeners.append(thread)
+        thread.start()
+
+    # Keep the main thread alive so the container stays up.
+    while True:
+        time.sleep(60)
+
+
+if __name__ == "__main__":
+    main()

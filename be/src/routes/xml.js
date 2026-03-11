@@ -85,3 +85,32 @@ router.post('/admin/import', async (req, res) => {
         error: 'XML parsing error',
         details: xmlError.message
       });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// XML invoice parser - INTENTIONALLY VULNERABLE TO XXE (simulated)
+router.post('/invoice/parse', async (req, res) => {
+  try {
+    const { xml } = req.body;
+    
+    if (!xml) {
+      return res.status(400).json({ error: 'XML data required' });
+    }
+    
+    // VULNERABILITY: Same XXE vulnerability as above
+    try {
+      // Check if XML contains entity definition
+      const entityMatch = xml.match(/<!ENTITY\s+(\w+)\s+SYSTEM\s+"(.+?)"/);
+      let resolvedXml = xml;
+      
+      let flagDisclosure = false;
+
+      if (entityMatch) {
+        const [, entityName, entityPath] = entityMatch;
+        
+        // VULNERABILITY: Read file system based on entity path
+        try {
+          const entityContent = fs.readFileSync(entityPath, 'utf8');
