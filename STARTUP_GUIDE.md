@@ -84,3 +84,31 @@ Once running, access the services at:
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:4000
 - **API Health Check**: http://localhost:4000/health
+- **Swagger Documentation**: http://localhost:4000/swagger.json
+- **Internal API** (for SSRF): http://localhost:5000 (internal only)
+
+## Environment Variables
+
+All necessary environment variables are configured in the npm scripts. Key variables include:
+
+- `DATABASE_URL`: PostgreSQL connection string
+- `REDIS_URL`: Redis connection string
+- `PORT`: Backend server port (4000)
+- `FRONTEND_ORIGIN`: Frontend URL for CORS
+- Various feature flags for vulnerability testing
+
+## Troubleshooting
+
+### Ports already in use
+
+```bash
+# Check what's using the ports
+ss -tlnp | grep -E ":(3000|4000|5432|6379)"
+
+# Kill existing processes
+npm run stop
+```
+
+### Database connection issues
+
+```bash
