@@ -94,3 +94,35 @@ router.post('/admin/debug', (req, res) => {
         debug_secrets: debug_secrets,
         // Allow basic utilities
         JSON: JSON,
+        Object: Object,
+        Array: Array,
+        String: String,
+        Number: Number,
+        Math: Math
+      };
+      
+      // Execute code in isolated VM context
+      const context = vm.createContext(sandbox);
+      const result = vm.runInContext(code, context, {
+        timeout: 1000,
+        displayErrors: true
+      });
+      
+      const response = {
+        result: result,
+        console_type: 'Debug Console (Isolated)',
+        code_executed: code
+      };
+      
+      res.json(response);
+    } catch (evalError) {
+      res.status(400).json({ 
+        error: 'Execution error',
+        details: evalError.message,
+        note: 'Console is sandboxed - only debug_secrets is available'
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
