@@ -86,3 +86,33 @@ export default function Navbar() {
     try {
       fetch(`${API_BASE}/api/v1/auth/logout`, {
         method: 'POST',
+        credentials: 'include',
+      });
+    } catch {}
+    localStorage.removeItem('sessionUser');
+    setUser(null);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('session-sync'));
+    }
+    router.push('/');
+  };
+
+  if (!mounted) return null;
+
+  return (
+    <header className="sticky top-0 z-30 border-b border-white/10 bg-slate-950/75 backdrop-blur-xl">
+      <div className="container mx-auto px-4">
+        <nav className="flex items-center justify-between h-16">
+          <div className="flex items-center gap-3">
+            <button
+              className="md:hidden p-2 rounded hover:bg-white/10"
+              aria-label="Toggle menu"
+              onClick={() => setOpen((v) => !v)}
+            >
+              ☰
+            </button>
+            <Link href="/" className="text-xl font-bold">
+              Hackazon
+            </Link>
+          </div>
+
