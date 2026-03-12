@@ -68,3 +68,26 @@ app.use('/api/v1', require('./routes/email'));
 app.use('/api/v1', require('./routes/download'));
 
 // Expose OpenAPI document for recon
+app.get('/swagger.json', (req, res) => {
+  res.json(swaggerDoc);
+});
+
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  logger.error(err);
+  res.status(500).json({ error: err.message });
+});
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  logger.info(`🚀 API server running on port ${PORT}`);
+  logger.info(`⚠️  WARNING: This server contains intentional vulnerabilities for security testing only`);
+});
+
+
+
