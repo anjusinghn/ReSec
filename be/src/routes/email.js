@@ -95,3 +95,36 @@ router.post('/orders/:id/send-confirmation', async (req, res) => {
     <p>&copy; 2025 Hackazon. All rights reserved.</p>
   </div>
 </body>
+</html>
+    `;
+
+    try {
+      // VULNERABILITY: User's displayName is rendered without sanitization
+      // If displayName contains <%= ... %>, it will be executed as EJS code
+      const html = ejs.render(emailTemplate, {
+        customerName: order.user.displayName || order.user.username, // VULNERABLE!
+        orderId: order.id,
+        items: order.items,
+        totalCents: order.totalCents
+      });
+
+      let response = {
+        message: 'Order confirmation email rendered',
+        to: order.user.email,
+        subject: `Order Confirmation - Order #${order.id}`,
+        template_engine: 'EJS',
+        html: html,
+        note: 'Email not actually sent (demo mode)'
+      };
+      
+      // Provide hints if SSTI is detected
+      if (order.user.displayName && (order.user.displayName.includes('<%') || order.user.displayName.includes('{{'))) {
+        response.security_note = 'Template syntax detected in displayName!';
+        response.template_syntax = 'EJS uses <%= %> for output, <% %> for code';
+        response.hint = 'User-controlled data is being rendered in email template. Available objects: all variables passed to template';
+      }
+
+      // For demo purposes, return the rendered HTML instead of sending
+      res.json(response);
+
+    } catch (err) {
