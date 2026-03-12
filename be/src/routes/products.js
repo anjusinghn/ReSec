@@ -80,3 +80,30 @@ router.get('/products/search', async (req, res) => {
 // Get product suggestions (for autocomplete)
 router.get('/products/suggest', async (req, res) => {
   try {
+    const { q = '' } = req.query;
+    
+    const products = await prisma.product.findMany({
+      where: {
+        name: {
+          contains: q,
+          mode: 'insensitive'
+        }
+      },
+      select: {
+        id: true,
+        name: true,
+        priceCents: true
+      },
+      take: 5
+    });
+    
+    res.json({ suggestions: products });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+const detectXssPayload = (value = '') => {
+  return /<|>|on\w+=|javascript:|alert\s*\(|script|svg|img/i.test(String(value));
+};
+
