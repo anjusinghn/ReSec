@@ -91,3 +91,33 @@ const FALLBACK_PRODUCTS = [
   {
     id: 'fakestore-9',
     name: 'WD 2TB Elements Portable Drive',
+    priceCents: 6400,
+    imageUrl: 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg',
+    category: toTitleCase('electronics'),
+    rating: '3.3',
+  },
+  {
+    id: 'fakestore-10',
+    name: 'SanDisk SSD PLUS 1TB',
+    priceCents: 5999,
+    imageUrl: 'https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg',
+    category: toTitleCase('electronics'),
+    rating: '2.9',
+  }
+];
+
+async function getProducts() {
+  try {
+    const res = await fetchWithTimeout('https://fakestoreapi.com/products', {
+      // Use ISR-style caching; avoid conflicting cache options
+      next: { revalidate: 300 },
+      timeout: 2500,
+    });
+    if (!res.ok) {
+      throw new Error(`Failed to load products (${res.status})`);
+    }
+    const data = await res.json();
+    const items = data
+      .filter((item) => item?.image)
+      .map((item) => ({
+        id: `fakestore-${item.id}`,
