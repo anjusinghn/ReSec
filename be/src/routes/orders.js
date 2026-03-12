@@ -75,3 +75,28 @@ router.post('/orders', async (req, res) => {
     
     const { items, giftNote } = req.body;
     
+    if (!items || items.length === 0) {
+      return res.status(400).json({ error: 'No items in order' });
+    }
+    
+    // Calculate total
+    let totalCents = 0;
+    for (const item of items) {
+      const product = await prisma.product.findUnique({
+        where: { id: item.productId }
+      });
+      if (product) {
+        totalCents += product.priceCents * item.qty;
+      }
+    }
+    
+    // Create order
+    const order = await prisma.order.create({
+      data: {
+        userId: req.session.userId,
+        status: 'pending',
+        totalCents,
+        giftNote,
+        items: {
+          create: items.map(item => ({
+            productId: item.productId,
