@@ -97,3 +97,36 @@ export default async function Home() {
                   </Link>
                   <Link href="/about" className="inline-flex items-center justify-center rounded-md border border-white/50 px-4 py-2 text-sm font-semibold hover:bg-white/10">Learn More</Link>
                 </div>
+              </div>
+              <div className="hidden md:block">
+                <div className="max-w-sm mx-auto rounded-2xl bg-slate-950/80 border border-white/10 text-white shadow-2xl overflow-hidden backdrop-blur">
+                  <div className="relative pt-[100%]">
+                    <img
+                      src={heroProduct?.imageUrl || 'https://placehold.co/600x600/0f172a/ffffff?text=Product'}
+                      alt={heroProduct?.name || 'Featured product'}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent" />
+                  </div>
+                  <div className="p-6 space-y-3">
+                    <div className="text-xs font-semibold uppercase tracking-wide text-slate-300/90">
+                      {heroProduct?.category || 'Featured'}
+                    </div>
+                    <h3 className="text-lg font-semibold leading-tight line-clamp-2 text-white">
+                      {heroProduct?.name || 'Featured Product'}
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <div className="text-2xl font-bold text-emerald-300">
+                        ${((heroProduct?.priceCents ?? 0) / 100).toFixed(2)}
+                      </div>
+                      <Link
+                        href={heroLink}
+                        className="inline-flex items-center gap-1 px-3 py-2 rounded-full bg-white/10 text-white text-sm font-semibold border border-white/20 hover:bg-white/20 transition"
+                      >
+                        View
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>

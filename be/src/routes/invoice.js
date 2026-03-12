@@ -91,3 +91,33 @@ router.get('/invoice/:id', async (req, res) => {
       items: order.items.map(item => ({
         description: item.product.name,
         qty: item.qty,
+        priceCents: item.priceCents
+      })),
+      totalCents: order.totalCents,
+      note: note || ''
+    };
+    
+    if (note) {
+      const availableTokens = ['flag', 'customer.name', 'customer.email', 'total', 'totalCents'];
+
+      const templateContext = {
+        flag: process.env.SHOPSMART_FLAG || '',
+        customer: invoiceData.customer,
+        totalCents: invoiceData.totalCents,
+        total: (invoiceData.totalCents / 100).toFixed(2),
+        invoice: invoiceData,
+        available_tokens: availableTokens
+      };
+
+      const renderedNote = renderNoteTemplate(note, templateContext);
+      invoiceData.note = renderedNote;
+    }
+    
+    res.json(invoiceData);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
