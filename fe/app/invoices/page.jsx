@@ -119,3 +119,33 @@ export default function InvoicesPage() {
                 className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-sm"
               />
               <p className="text-xs text-gray-500 mt-1">
+                You can specify any filename in the invoices directory
+              </p>
+            </div>
+
+            <button
+              onClick={handleDownload}
+              disabled={loading || (!selectedFile && !customFile.trim())}
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Downloading...' : 'Download Invoice'}
+            </button>
+          </div>
+        </div>
+
+        {error && (
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4">
+            <div className="text-red-800 dark:text-red-200 text-sm">
+              <strong>Error:</strong> {error}
+            </div>
+          </div>
+        )}
+
+        {downloadResult && (
+          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md p-4">
+            <div className="space-y-2">
+              <h3 className="font-semibold">Download Result</h3>
+              
+              {downloadResult.type === 'file' && (
+                <div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
