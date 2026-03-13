@@ -129,3 +129,35 @@ docker exec shopsmart-api npm run prisma:seed
 
 # Run tests
 ./test-all-vulnerabilities.sh
+
+# View logs
+docker-compose logs -f
+```
+
+---
+
+## 🎓 Educational Features
+
+### Learning Paths
+
+**Beginner Path** (⭐):
+1. IDOR (Order & Profile)
+2. Data Exposure (Git & Config)
+3. Open Redirect (Login & Affiliate)
+
+**Intermediate Path** (⭐⭐):
+1. SQL Injection (Search & Order)
+2. XSS (Stored & Reflected)
+3. Path Traversal (Invoice & Upload)
+
+**Advanced Path** (⭐⭐⭐):
+1. SSTI (Invoice & Email) with RCE
+2. XXE (Import & Parser)
+3. SSRF (Proxy & Webhook)
+
+### Multi-Step Exploitation Chains
+
+**Chain 1**: IDOR → SQLi → Flag Extraction
+- Use IDOR to access admin order
+- Use SQLi to extract admin secrets
+- Combine multiple flags

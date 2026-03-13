@@ -129,3 +129,35 @@ export default function OrderDetailsPage() {
                 Back to Home
               </Link>
             </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!order) {
+    return null;
+  }
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'delivered': return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
+      case 'shipped': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
+      case 'processing': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
+    }
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="mb-6">
