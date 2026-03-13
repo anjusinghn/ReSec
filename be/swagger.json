@@ -128,3 +128,36 @@
                   },
                   "displayName": {
                     "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registration succeeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/api/v1/user/profile": {
+      "get": {
+        "summary": "View current user's profile",
+        "description": "Returns profile details for the authenticated session.",
+        "responses": {
