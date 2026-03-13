@@ -126,3 +126,35 @@ export default function CatalogImportPage() {
               <button
                 type="button"
                 onClick={() => loadSampleXml('basic')}
+                className="px-3 py-1 text-xs border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Load Basic Sample
+              </button>
+              <button
+                type="button"
+                onClick={() => loadSampleXml('advanced')}
+                className="px-3 py-1 text-xs border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Load Advanced Sample
+              </button>
+              <button
+                type="button"
+                onClick={() => loadSampleXml('bulk')}
+                className="px-3 py-1 text-xs border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Load Bulk Sample
+              </button>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Processing Import...' : 'Import Catalog'}
+            </button>
+          </form>
+        </div>
+
+        {error && (
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4">
