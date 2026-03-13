@@ -122,3 +122,34 @@ router.post('/auth/login-redirect', async (req, res) => {
     }
     
     // Set session
+    req.session.userId = user.id;
+    req.session.role = user.role;
+    
+    // VULNERABILITY: Open redirect via 'next' parameter
+    // Weak domain validation can be bypassed with:
+    // - @attacker.com (domain validation bypass)
+    // - //attacker.com (protocol-relative URL)
+    // - https://trusted.com@attacker.com (credentials in URL)
+    // - https://trusted.com.attacker.com (subdomain)
+    
+    let redirectUrl = next || '/';
+    const trustedDomain = 'localhost';
+    const isAbsolute = typeof redirectUrl === 'string' && /^(?:https?:)?\/\//i.test(redirectUrl);
+    const looksTrusted = typeof redirectUrl === 'string' && redirectUrl.includes(trustedDomain);
+    const flagValue = redirectUrl && redirectUrl.toLowerCase().includes('evil')
+      ? (process.env.OPEN_REDIRECT_FLAG || 'PCTFS{open_redirect_post_login}')
+      : undefined;
+
+    if (flagValue) {
+      res.set('X-Open-Redirect-Flag', flagValue);
+    }
+
+    res.set('X-Login-Redirect', redirectUrl);
+
+    if (!isAbsolute && !redirectUrl.startsWith('/')) {
+      redirectUrl = '/';
+    }
+
+    // Trusted domains short-circuit to a straight redirect as well
+    if (looksTrusted || redirectUrl.startsWith('/') || isAbsolute) {
+      return res.redirect(redirectUrl);
