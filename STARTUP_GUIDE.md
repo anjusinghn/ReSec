@@ -112,3 +112,32 @@ npm run stop
 ### Database connection issues
 
 ```bash
+# Check if database is running
+docker ps | grep shopsmart-db
+
+# View database logs
+docker logs shopsmart-db
+
+# Restart Docker services
+npm run docker:down && npm run docker:up
+```
+
+### Fresh database needed
+
+```bash
+# Remove all data and start fresh
+npm run clean
+npm start
+```
+
+### Node modules issues
+
+```bash
+# Reinstall all dependencies
+npm run setup
+```
+
+### Backend won't start - Missing modules
+
+```bash
+cd be
