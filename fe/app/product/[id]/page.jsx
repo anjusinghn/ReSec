@@ -131,3 +131,36 @@ export default function ProductPage({ params }) {
         if (flagFromServer) {
           err.xssFlag = flagFromServer;
         }
+        throw err;
+      }
+      const data = await res.json();
+      setError('');
+      setErrorFlag(null);
+      setProduct(data);
+      setReviews(data.reviews || []);
+      setLoading(false);
+    } catch (err) {
+      const fallback = fallbackProducts[id];
+      if (fallback) {
+        setProduct(fallback);
+        setReviews([]);
+        setError('');
+        setErrorFlag(null);
+        setLoading(false);
+        return;
+      }
+      // VULNERABILITY: Error message contains unsanitized user input
+      setError(err.message);
+      const defaultFlag = process.env.NEXT_PUBLIC_XSS_ALERT_FLAG || 'PCTFS{xss_alert_bonus_flag}';
+      const suspicious = xssPattern.test(String(id));
+      setErrorFlag(err.xssFlag || (suspicious ? defaultFlag : null));
+      setLoading(false);
+    }
+  };
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+    setSubmitLoading(true);
+
+    try {
+      // VULNERABILITY: Stored XSS - review text is not sanitized
