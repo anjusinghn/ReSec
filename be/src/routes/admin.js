@@ -126,3 +126,35 @@ router.post('/admin/debug', (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// Image upload endpoint - INTENTIONALLY VULNERABLE (simulates Pillow vulnerability)
+router.post('/admin/upload-product-image', async (req, res) => {
+  try {
+    const { productId, imageData, format } = req.body;
+    
+    if (!productId) {
+      return res.status(400).json({
+        error: 'productId required',
+        description: 'Product Image Upload API',
+        image_library: 'Pillow 8.1.0',
+        supported_formats: ['JPEG', 'PNG', 'GIF', 'BMP', 'TIFF', 'EPS'],
+        vulnerability_info: 'Check CVE database for Pillow 8.1.0 vulnerabilities',
+        usage: 'Send {"productId":1,"imageData":"base64...","format":"JPEG"}'
+      });
+    }
+    
+    // VULNERABILITY: Accepts image data without proper validation
+    // CVE-2021-25287 affects Pillow versions < 8.1.1
+    // Buffer overflow can occur with specially crafted EPS files
+    
+    // Simulate vulnerability trigger
+    if (format && (format.toUpperCase() === 'EPS' || format === 'EPS')) {
+      // EPS format triggers the vulnerability
+      // CVE-2021-25287: Buffer overflow in EPS format processing
+      // Simulates memory corruption that leaks adjacent memory containing the Pillow flag
+      const pillow_internal_memory = {
+        image_buffer: '0x7fff5fbff000',
+        pillow_version: '8.1.0',
+        eps_parser_state: 'corrupted',
+        adjacent_memory_leak: process.env.PILLOW_FLAG || 'PCTFS{pillow_8_1_0_buffer_overflow_memory_leak}'
+      };
