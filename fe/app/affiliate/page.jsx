@@ -126,3 +126,35 @@ export default function AffiliatePortal() {
       <div className="container mx-auto px-4 pb-20 -mt-12">
         <div className="grid lg:grid-cols-[1.4fr_1fr] gap-8">
           <div className="space-y-6">
+            <div className="rounded-3xl border border-slate-800 bg-slate-900/80 backdrop-blur shadow-xl p-6 md:p-8 space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-white">Campaign Composer</h2>
+                <span className="text-xs uppercase tracking-[0.3em] text-slate-400">LIVE BUILDER</span>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-wide text-slate-400">Partner Name</label>
+                  <input
+                    value={partnerName}
+                    onChange={(e) => setPartnerName(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500/50"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-wide text-slate-400">Partner Code</label>
+                  <input
+                    value={partnerCode}
+                    onChange={(e) => setPartnerCode(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-200 uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-sky-500/50"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <label className="text-xs uppercase tracking-wide text-slate-400">Featured Offer</label>
+                <div className="grid md:grid-cols-3 gap-3">
+                  {offers.map((offer) => (
+                    <button
+                      key={offer.id}
+                      onClick={() => handleOfferChange(offer.id)}
+                      className={`text-left rounded-2xl border p-4 transition ${
