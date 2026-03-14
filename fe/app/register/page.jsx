@@ -114,3 +114,32 @@ export default function RegisterPage() {
           <input name="lastName" required className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background" />
         </div>
         <div className="md:col-span-2">
+          <label className="block text-sm font-medium mb-1">Username</label>
+          <input name="username" required className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background" />
+        </div>
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium mb-1">Email Address</label>
+          <input name="email" type="email" required className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Password</label>
+          <input name="password" type="password" required className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Confirm Password</label>
+          <input name="confirmPassword" type="password" required className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background" />
+        </div>
+        <div className="md:col-span-2">
+          <label className="inline-flex items-center gap-2 text-sm"><input type="checkbox" required /> I agree to the Terms and Privacy</label>
+        </div>
+        <div className="md:col-span-2">
+          <button disabled={loading} className="w-full px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50">{loading ? 'Creating…' : 'Create Account'}</button>
+        </div>
+        <div className="md:col-span-2 text-center text-sm">
+          <span className="text-foreground/70">Already have an account? </span>
+          <Link href="/login" className="font-semibold hover:underline">Sign in</Link>
+        </div>
+      </form>
+    </div>
+  );
+}
