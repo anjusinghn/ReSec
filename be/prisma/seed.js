@@ -116,3 +116,33 @@ async function main() {
   console.log('✓ Created user orders');
 
   // Create admin secret with SQLi flag
+  const sqliFlagValue = `PCTFS{${uuidv4()}}`;
+  await prisma.adminSecret.create({
+    data: {
+      key: 'sqli_flag',
+      value: sqliFlagValue
+    }
+  });
+  console.log('✓ Created admin secret with SQLi flag');
+
+  // Create some reviews
+  await prisma.review.createMany({
+    data: [
+      {
+        userId: user1.id,
+        productId: createdProducts[0].id,
+        rating: 5,
+        text: 'Excellent product! Highly recommended.'
+      },
+      {
+        userId: user2.id,
+        productId: createdProducts[1].id,
+        rating: 4,
+        text: 'Good quality, fast shipping.'
+      },
+      {
+        userId: user1.id,
+        productId: createdProducts[2].id,
+        rating: 5,
+        text: 'Perfect for my setup!'
+      }

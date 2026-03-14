@@ -133,3 +133,37 @@ export default function ProfilePage() {
       }
     } catch (err) {
       setUploadError(err.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  if (loadingProfile) {
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <p className="text-sm text-foreground/70">Loading your profile...</p>
+      </div>
+    );
+  }
+
+  if (profileError) {
+    return (
+      <div className="container mx-auto px-4 py-12 max-w-lg">
+        <div className="rounded border border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300 p-4 text-center">
+          {profileError}
+        </div>
+      </div>
+    );
+  }
+
+  if (!user || !formData) {
+    return null;
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-8 grid md:grid-cols-3 gap-6">
+      <div className="rounded-xl border border-black/10 dark:border-white/10 p-4 text-center space-y-3">
+        <div className="w-28 h-28 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 mx-auto text-5xl flex items-center justify-center mb-1">
+          {(user.displayName || user.username || '👤').charAt(0).toUpperCase()}
+        </div>
+        <div>
