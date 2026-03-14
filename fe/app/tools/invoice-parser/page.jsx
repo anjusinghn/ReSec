@@ -122,3 +122,34 @@ export default function InvoiceParserPage() {
         </div>
 
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md p-4">
+          <div className="flex items-start">
+            <div className="text-green-600 dark:text-green-400 mr-3">✅</div>
+            <div>
+              <h3 className="font-semibold text-green-800 dark:text-green-200">Public Tool</h3>
+              <p className="text-sm text-green-700 dark:text-green-300 mt-1">
+                This parsing tool is available to all users. No special permissions required.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+          <form onSubmit={handleParse} className="space-y-4">
+            <div>
+              <label className="block text-sm font-semibold mb-2">XML Invoice Data</label>
+              <textarea
+                value={xmlData}
+                onChange={(e) => setXmlData(e.target.value)}
+                rows={14}
+                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 font-mono text-sm"
+                placeholder="Paste XML invoice data here..."
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => loadSampleInvoice('single')}
+                className="px-3 py-1 text-xs border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Single Invoice
