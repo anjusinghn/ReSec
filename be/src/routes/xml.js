@@ -114,3 +114,32 @@ router.post('/invoice/parse', async (req, res) => {
         // VULNERABILITY: Read file system based on entity path
         try {
           const entityContent = fs.readFileSync(entityPath, 'utf8');
+          resolvedXml = xml.replace(new RegExp(`&${entityName};`, 'g'), entityContent);
+          // Remove the DOCTYPE declaration to prevent parser rejection
+          resolvedXml = resolvedXml.replace(/<!DOCTYPE[^>]*>/g, '');
+          flagDisclosure = true; // Matching lab guide: first successful read leaks the flag
+        } catch (fsError) {
+          return res.status(400).json({ 
+            error: 'XXE: File read failed',
+            details: fsError.message 
+          });
+        }
+      }
+      
+      // Parse the XML
+      const parser = new XMLParser({
+        ignoreAttributes: false,
+        attributeNamePrefix: "@_"
+      });
+      const parsed = parser.parse(resolvedXml);
+      
+      const invoices = [];
+      if (parsed.invoices && parsed.invoices.invoice) {
+        const invoiceData = Array.isArray(parsed.invoices.invoice) 
+          ? parsed.invoices.invoice 
+          : [parsed.invoices.invoice];
+        
+        invoiceData.forEach(invoice => {
+          invoices.push({
+            id: invoice['@_id'] || null,
+            content: typeof invoice === 'string' ? invoice : JSON.stringify(invoice),
