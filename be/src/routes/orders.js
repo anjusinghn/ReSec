@@ -100,3 +100,28 @@ router.post('/orders', async (req, res) => {
         items: {
           create: items.map(item => ({
             productId: item.productId,
+            qty: item.qty,
+            priceCents: item.priceCents
+          }))
+        }
+      },
+      include: {
+        items: {
+          include: {
+            product: true
+          }
+        }
+      }
+    });
+    
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
+
+
+
