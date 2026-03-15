@@ -121,3 +121,34 @@ async function getProducts() {
       .filter((item) => item?.image)
       .map((item) => ({
         id: `fakestore-${item.id}`,
+        name: item.title,
+        priceCents: Math.round((item.price ?? 0) * 100),
+        imageUrl: item.image,
+        category: toTitleCase(item.category),
+        rating: formatRating(item.rating),
+      }));
+    if (items.length > 0) {
+      return { items, total: items.length };
+    }
+  } catch (err) {
+    console.error('Failed to fetch products:', err);
+  }
+  return { items: FALLBACK_PRODUCTS, total: FALLBACK_PRODUCTS.length };
+}
+
+export default async function ProductsPage() {
+  const data = await getProducts();
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="grid md:grid-cols-4 gap-6">
+        <aside className="md:col-span-1">
+          <div className="rounded-xl border border-black/10 dark:border-white/10 p-4 sticky top-20">
+            <h3 className="font-semibold mb-3">Filters</h3>
+            <div className="space-y-3 text-sm">
+              <div>
+                <div className="font-medium mb-1">Category</div>
+                {['Electronics','Accessories','Clothing','Home'].map((c) => (
+                  <label key={c} className="flex items-center gap-2">
+                    <input type="checkbox" className="accent-blue-600" /> <span>{c}</span>
+                  </label>

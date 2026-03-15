@@ -116,3 +116,32 @@ export default function Navbar() {
             </Link>
           </div>
 
+          <div className="hidden md:flex items-center gap-6 text-slate-300">
+            <Link href="/products" className="text-sm hover:text-sky-300 transition">Products</Link>
+            <Link href="/search" className="text-sm hover:text-sky-300 transition">Search</Link>
+            <Link href="/invoices" className="text-sm hover:text-sky-300 transition">Invoices</Link>
+            <Link href="/about" className="text-sm hover:text-sky-300 transition">About</Link>
+            <Link href="/contact" className="text-sm hover:text-sky-300 transition">Contact</Link>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Link href="/cart" className="relative inline-flex items-center gap-1 px-3 py-2 rounded border border-white/10 hover:bg-white/10 text-sm text-slate-200">
+              <span>🛒</span>
+              <span>Cart</span>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 text-[10px] bg-red-500 text-white rounded-full px-1">{cartCount}</span>
+              )}
+            </Link>
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="px-3 py-2 rounded border border-white/10 hover:bg-white/10 text-sm text-slate-200"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
+            <div className="hidden md:flex items-center gap-2">
+              {isLoggedIn ? (
+                <>
+                  <Link
+                    href="/profile"
+                    className="px-3 py-2 rounded border border-white/10 hover:bg-white/10 text-sm text-slate-200"
