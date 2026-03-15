@@ -130,3 +130,36 @@ export default async function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="container mx-auto px-4 py-12">
+        <div className="rounded-3xl border border-white/10 bg-slate-900/70 backdrop-blur p-10 space-y-10">
+          <div className="text-center space-y-2">
+            <h2 className="text-3xl font-bold text-white">Why Choose Hackazon?</h2>
+            <p className="text-slate-400">Experience the best online shopping with premium, future-ready features.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[{icon:'🚚', title:'Fast Shipping', text:'Get your orders delivered quickly with our express shipping options'}, {icon:'🔒', title:'Secure Payments', text:'Shop with confidence using our secure payment processing'}, {icon:'💎', title:'Quality Products', text:'Handpicked selection of the best products on the market'}].map((f, i) => (
+              <div key={i} className="h-full rounded-2xl border border-white/10 bg-slate-950/60 p-6 shadow-lg shadow-slate-950/30">
+                <div className="text-5xl mb-4">{f.icon}</div>
+                <h3 className="text-lg font-semibold text-white mb-1">{f.title}</h3>
+                <p className="text-sm text-slate-400 leading-relaxed">{f.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="container mx-auto px-4 py-12">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-white">Featured Products</h2>
+          <Link href="/products" className="text-sm px-3 py-2 rounded-full border border-white/10 text-slate-200 hover:bg-white/10 transition">View All →</Link>
+        </div>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((p) => (
+            <div key={p.id} className="group rounded-2xl border border-white/10 bg-slate-950/50 overflow-hidden shadow-lg shadow-slate-950/40 hover:border-sky-400/60 transition">
+              <div className="relative pt-[100%] overflow-hidden">
+                <img
+                  src={p.imageUrl}
