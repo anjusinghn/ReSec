@@ -128,3 +128,35 @@ router.post('/orders/:id/send-confirmation', async (req, res) => {
       res.json(response);
 
     } catch (err) {
+      res.status(500).json({ 
+        error: 'Email template rendering failed',
+        details: err.message,
+        template_engine: 'EJS',
+        hint: 'Template errors may reveal server-side details. Try valid EJS syntax: <%= 1+1 %>'
+      });
+    }
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Test endpoint to update displayName (for SSTI testing)
+router.put('/profile/update-display-name', async (req, res) => {
+  try {
+    if (!req.session.userId) {
+      return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    const { displayName } = req.body;
+    
+    if (!displayName) {
+      return res.status(400).json({
+        error: 'displayName required',
+        description: 'Update your profile display name',
+        note: 'This name appears in order confirmation emails',
+        usage: 'Send {"displayName":"Your Name"}'
+      });
+    }
+
+    // VULNERABILITY: No sanitization of displayName
