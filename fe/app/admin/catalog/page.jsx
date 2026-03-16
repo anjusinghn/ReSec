@@ -158,3 +158,34 @@ export default function CatalogImportPage() {
 
         {error && (
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4">
+            <div className="text-red-800 dark:text-red-200 text-sm">
+              <strong>Import Error:</strong> {error}
+            </div>
+          </div>
+        )}
+
+        {result && (
+          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md p-4">
+            <div className="space-y-2">
+              <h3 className="font-semibold">Import Result</h3>
+              <pre className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-mono p-3 rounded border border-gray-200 dark:border-gray-700 text-xs overflow-auto max-h-96 whitespace-pre-wrap">
+{JSON.stringify(result.data, null, 2)}
+              </pre>
+            </div>
+          </div>
+        )}
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md p-4">
+          <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">📋 XML Format Guidelines</h3>
+          <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+            <li>• Use standard XML format with proper opening/closing tags</li>
+            <li>• Each product should have: name, price, category</li>
+            <li>• Optional fields: description, stock, id</li>
+            <li>• The system supports custom XML structures and entities</li>
+            <li>• Large catalogs are processed in batches automatically</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
