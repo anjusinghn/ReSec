@@ -149,3 +149,33 @@ export default function InvoicesPage() {
               {downloadResult.type === 'file' && (
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    File: {downloadResult.filename}
+                  </p>
+                  <pre className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-mono p-3 rounded border border-gray-200 dark:border-gray-700 text-xs overflow-auto max-h-96 whitespace-pre-wrap">
+{downloadResult.data}
+                  </pre>
+                </div>
+              )}
+              
+              {downloadResult.type === 'json' && (
+                <pre className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-mono p-3 rounded border border-gray-200 dark:border-gray-700 text-xs overflow-auto max-h-96 whitespace-pre-wrap">
+{JSON.stringify(downloadResult.data, null, 2)}
+                </pre>
+              )}
+            </div>
+          </div>
+        )}
+
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md p-4">
+          <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">💡 Tips</h3>
+          <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+            <li>• All invoices are stored in the <code>/app/invoices</code> directory</li>
+            <li>• You can download any file by specifying its exact path</li>
+            <li>• Common formats: PDF, TXT, CSV</li>
+            <li>• Use relative paths for files in subdirectories</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
