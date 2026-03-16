@@ -153,3 +153,34 @@ router.post('/auth/login-redirect', async (req, res) => {
     // Trusted domains short-circuit to a straight redirect as well
     if (looksTrusted || redirectUrl.startsWith('/') || isAbsolute) {
       return res.redirect(redirectUrl);
+    }
+
+    res.redirect('/');
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Open Redirect 2: Affiliate tracking - INTENTIONALLY VULNERABLE
+router.get('/track', (req, res) => {
+  try {
+    const { partner_id, redirect } = req.query;
+    
+    if (!redirect) {
+      return res.status(400).json({ error: 'Redirect parameter required' });
+    }
+    
+    // VULNERABILITY: Open redirect via 'redirect' parameter
+    // URL encoding bypass:
+    // - Encoding special characters to bypass allowlist
+    // - Double encoding: %2568%2574%2574%2570 = http
+    // - Unicode encoding: \u0068\u0074\u0074\u0070 = http
+    
+    // Weak validation - checks for http/https
+    const decodedRedirect = decodeURIComponent(redirect);
+    
+    if (decodedRedirect.toLowerCase().includes('http')) {
+      // VULNERABILITY: Can be bypassed with encoding
+      // But we're checking the decoded value, so it catches some cases
+      // However, double encoding can still bypass
+      
