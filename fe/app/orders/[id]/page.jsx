@@ -161,3 +161,36 @@ export default function OrderDetailsPage() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-6">
+          <Link href="/orders/2" className="text-blue-600 dark:text-blue-400 hover:underline mb-2 inline-block">
+            ← Back to Your Orders
+          </Link>
+          <h1 className="text-3xl font-bold">{orderId === '2' ? 'Your Orders' : 'Order Details'}</h1>
+        </div>
+
+        {/* Order Summary */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
+            <div>
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Order Date</div>
+              <div className="font-semibold">{formatDate(order.created_at || order.createdAt)}</div>
+            </div>
+            <div>
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Status</div>
+              <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(order.status)}`}>
+                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+              </span>
+            </div>
+          </div>
+
+          {order.gift_note && (
+            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md p-4 mb-6">
+              <div className="text-sm font-semibold text-yellow-800 dark:text-yellow-200 mb-1">📝 Gift Note</div>
+              <div className="text-yellow-700 dark:text-yellow-300">{order.gift_note}</div>
+            </div>
+          )}
+
+          {/* Order Items */}
+          <div>
+            <h3 className="font-semibold mb-4 text-lg">Items</h3>
+            <div className="space-y-3">
+              {order.items && order.items.map((item, idx) => (

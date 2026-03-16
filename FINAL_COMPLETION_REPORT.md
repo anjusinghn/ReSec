@@ -161,3 +161,36 @@ docker-compose logs -f
 - Use IDOR to access admin order
 - Use SQLi to extract admin secrets
 - Combine multiple flags
+
+**Chain 2**: Path Traversal → Source Analysis → Privilege Escalation
+- Read source code via path traversal
+- Find hardcoded credentials
+- Escalate to admin privileges
+
+**Chain 3**: SSRF → Internal Network → Flag Capture
+- Use SSRF to scan internal network
+- Access internal API services
+- Extract flags from internal endpoints
+
+**Chain 4**: XSS → Session Hijacking → Admin Takeover
+- Inject stored XSS in review
+- Wait for admin to view review
+- Steal admin session cookie
+- Access admin-only endpoints
+
+---
+
+## 📋 Key Implementation Details
+
+### SQL Injection
+- **Raw queries** with string concatenation
+- No parameterization or sanitization
+- UNION-based injection supported
+- Bypasses authentication checks
+
+### XSS
+- **Stored**: No sanitization + `dangerouslySetInnerHTML`
+- **Reflected**: Unescaped error messages
+- Works with `<svg/onload>` payload
+
+### SSTI
