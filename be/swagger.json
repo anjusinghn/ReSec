@@ -161,3 +161,35 @@
         "summary": "View current user's profile",
         "description": "Returns profile details for the authenticated session.",
         "responses": {
+          "200": {
+            "description": "Profile data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update profile",
+        "description": "Allows modifying profile fields for the current user. The backend validates very little, so additional JSON properties may be accepted (watch the request body).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
