@@ -146,3 +146,32 @@ async function main() {
         rating: 5,
         text: 'Perfect for my setup!'
       }
+    ]
+  });
+  console.log('✓ Created reviews');
+
+  // Create wishlist items
+  await prisma.wishlistItem.createMany({
+    data: [
+      { userId: user1.id, productId: createdProducts[5].id },
+      { userId: user1.id, productId: createdProducts[8].id },
+      { userId: user2.id, productId: createdProducts[0].id }
+    ]
+  });
+  console.log('✓ Created wishlist items');
+
+  console.log('✅ Database seeded successfully!');
+  console.log('\n📝 Test Credentials:');
+  console.log('Admin: admin@shopsmart.com / admin123');
+  console.log('User: john@example.com / password123');
+  console.log('User: jane@example.com / password123');
+}
+
+main()
+  .catch((e) => {
+    console.error('Error seeding database:', e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
