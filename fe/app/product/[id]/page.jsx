@@ -164,3 +164,36 @@ export default function ProductPage({ params }) {
 
     try {
       // VULNERABILITY: Stored XSS - review text is not sanitized
+      const res = await fetch('http://localhost:4000/api/v1/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          productId,
+          rating: newReview.rating,
+          text: newReview.text // XSS payload can be injected here
+        })
+      });
+
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
+      }
+      if (res.ok) {
+        const review = data.review || data;
+        const reviewWithId = {
+          ...review,
+          id: review?.id ?? Date.now()
+        };
+        setReviews((prev) => [reviewWithId, ...prev]);
+        setNewReview({ rating: 5, text: '' });
+        if (data.flag) {
+          alert(`Flag: ${data.flag}`);
+        }
+      } else {
+        alert('Failed to submit review. Please log in.');
+      }
+    } catch (err) {
+      alert('Error submitting review');
