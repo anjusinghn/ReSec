@@ -167,3 +167,37 @@ export default function ProfilePage() {
           {(user.displayName || user.username || '👤').charAt(0).toUpperCase()}
         </div>
         <div>
+          <h5 className="font-semibold">{formData.displayName || user.username}</h5>
+          <p className="text-sm text-foreground/70">{formData.email}</p>
+        </div>
+        <form onSubmit={handleProfilePictureUpload} className="w-full space-y-2">
+          <input
+            type="text"
+            value={filename}
+            onChange={(e) => setFilename(e.target.value)}
+            placeholder="avatar.jpg"
+            className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background text-sm"
+          />
+          <button
+            type="submit"
+            disabled={uploading}
+            className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/10 disabled:opacity-50"
+          >
+            {uploading ? 'Uploading...' : 'Upload Picture'}
+          </button>
+        </form>
+        <button className="w-full px-3 py-2 rounded border border-red-500/40 text-red-600 hover:bg-red-500/10">
+          Delete Account
+        </button>
+      </div>
+
+      <div className="md:col-span-2 space-y-6">
+        {success && (
+          <div className="rounded border border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-300 p-3">
+            Profile updated successfully!
+          </div>
+        )}
+
+        {uploadError && (
+          <div className="rounded border border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300 p-3">
+            <strong>Upload Error:</strong> {uploadError}
