@@ -134,3 +134,30 @@ router.get('/products/:id', async (req, res) => {
               select: {
                 id: true,
                 username: true,
+                displayName: true
+              }
+            }
+          }
+        }
+      }
+    });
+    
+    if (!product) {
+      if (possibleXss) {
+        res.set('X-XSS-Flag', reflectedFlag);
+      }
+      return res.status(404).json({
+        error: 'Product not found',
+        xssFlag: possibleXss ? reflectedFlag : undefined
+      });
+    }
+    
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
+

@@ -167,3 +167,36 @@ curl -X POST http://localhost:4000/api/v1/admin/import \
 ---
 
 ## 🎌 Flag Locations
+
+### Capture the Flag
+Hackazon contains **15 unique flags** in the format `PCTFS{...}`:
+
+| Flag Type | Location | Method |
+|-----------|----------|--------|
+| SQLi Search | `admin_secret` table | UNION injection |
+| SQLi Order | Admin order `gift_note` | UNION injection |
+| IDOR Order | Admin order `gift_note` | Direct access |
+| IDOR Profile | Admin user `secretNote` | No auth check |
+| XXE | `/app/secrets/flag.txt` | XML entity |
+| Path Traversal | `/etc/app_secrets/flag.txt` | Directory traversal |
+| Git Exposure | `fe/.git/config` | Nginx misconfiguration |
+| SSTI Invoice | Restricted renderer `{{ flag }}` | Template injection |
+| SSTI Email | `process.env.SSTI_EMAIL_FLAG` | Template injection |
+| Debug Console | `debug_secrets.console_flag` | Weak PIN + eval |
+| Pillow CVE | `leaked_memory.adjacent_memory_leak` | Format parameter |
+| Config Leak | Hardcoded in response | Header bypass |
+| SSRF | `http://internal-api:5000/secret` | Internal network access |
+| Open Redirect (Login) | Hardcoded in response | Validation bypass |
+| Open Redirect (Affiliate) | Hardcoded in response | URL encoding |
+
+**Note**: Database flags use dynamic UUIDs generated during seeding.
+
+---
+
+## 📚 Documentation
+
+- **[COMPLETE_VULNERABILITY_TEST_GUIDE.md](./COMPLETE_VULNERABILITY_TEST_GUIDE.md)** - Step-by-step testing instructions for all 20 vulnerabilities
+- **[COMPLETE_IMPLEMENTATION_SUMMARY.md](./COMPLETE_IMPLEMENTATION_SUMMARY.md)** - Technical implementation details and code references
+- **[SECURITY_TESTING_GUIDE.md](./SECURITY_TESTING_GUIDE.md)** - Original testing guide (legacy)
+
+---
