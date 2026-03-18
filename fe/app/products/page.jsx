@@ -152,3 +152,34 @@ export default async function ProductsPage() {
                   <label key={c} className="flex items-center gap-2">
                     <input type="checkbox" className="accent-blue-600" /> <span>{c}</span>
                   </label>
+                ))}
+              </div>
+              <div>
+                <div className="font-medium mb-1">Price</div>
+                {['Under $50','$50 - $100','$100 - $200','Over $200'].map((p) => (
+                  <label key={p} className="flex items-center gap-2">
+                    <input type="radio" name="price" className="accent-blue-600" /> <span>{p}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <button className="mt-4 w-full px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Apply Filters</button>
+          </div>
+        </aside>
+        <section className="md:col-span-3">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-2xl font-bold">All Products</h1>
+              <p className="text-sm text-foreground/70">{data.total} products found</p>
+            </div>
+            <select className="px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background text-sm">
+              <option>Sort by: Featured</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Newest</option>
+              <option>Best Rating</option>
+            </select>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.items.length === 0 && (
