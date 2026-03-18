@@ -145,3 +145,32 @@ export default function Navbar() {
                   <Link
                     href="/profile"
                     className="px-3 py-2 rounded border border-white/10 hover:bg-white/10 text-sm text-slate-200"
+                  >
+                    {user?.displayName || user?.username || 'Profile'}
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="px-3 py-2 rounded border border-white/10 hover:bg-white/10 text-sm text-slate-200"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="px-3 py-2 rounded hover:bg-white/10 text-sm text-slate-200">Login</Link>
+                  <Link href="/register" className="px-3 py-2 rounded border border-white/10 hover:bg-white/10 text-sm text-slate-200">Sign up</Link>
+                </>
+              )}
+            </div>
+          </div>
+        </nav>
+
+        {open && (
+          <div className="md:hidden pb-3 space-y-2">
+            <Link href="/products" className="block px-3 py-2 rounded hover:bg-white/10 text-slate-200" onClick={() => setOpen(false)}>Products</Link>
+            <Link href="/search" className="block px-3 py-2 rounded hover:bg-white/10 text-slate-200" onClick={() => setOpen(false)}>Search</Link>
+            <Link href="/about" className="block px-3 py-2 rounded hover:bg-white/10 text-slate-200" onClick={() => setOpen(false)}>About</Link>
+            <Link href="/contact" className="block px-3 py-2 rounded hover:bg-white/10 text-slate-200" onClick={() => setOpen(false)}>Contact</Link>
+            <div className="h-px bg-white/10" />
+            {isLoggedIn ? (
+              <>
