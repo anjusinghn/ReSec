@@ -160,3 +160,35 @@ router.put('/profile/update-display-name', async (req, res) => {
     }
 
     // VULNERABILITY: No sanitization of displayName
+    // Allows SSTI payload to be stored
+    const user = await prisma.user.update({
+      where: { id: req.session.userId },
+      data: { displayName },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        displayName: true,
+        role: true
+      }
+    });
+    
+    let response = {
+      ...user,
+      message: 'Display name updated successfully',
+      note: 'Your new display name will appear in order confirmation emails'
+    };
+    
+    // Provide diagnostic context if template syntax is detected
+    if (displayName.includes('<%') || displayName.includes('{{')) {
+      response.warning = 'Template-like syntax detected in your display name';
+      response.hint = 'Display names are used in email templates. To test, trigger an order confirmation email.';
+    }
+
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
