@@ -141,3 +141,31 @@ npm run setup
 
 ```bash
 cd be
+npm install
+cd ..
+```
+
+### Frontend won't start
+
+```bash
+cd fe
+npm install
+cd ..
+```
+
+## Development Tips
+
+1. **Auto-reload**: Both API (nodemon) and Frontend (Next.js) have hot-reload enabled
+2. **Logs**: The concurrently output shows both API and Frontend logs with color coding
+3. **Debug**: You can run `npm run dev:api` and `npm run dev:fe` in separate terminals for easier debugging
+4. **Database**: Use any PostgreSQL client to connect to `postgresql://shop:shop@localhost:5432/shop`
+
+## Stopping the Application
+
+Press `Ctrl+C` in the terminal where you started the app, then run:
+
+```bash
+npm run stop
+```
+
+Or manually:
