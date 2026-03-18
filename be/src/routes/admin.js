@@ -158,3 +158,35 @@ router.post('/admin/upload-product-image', async (req, res) => {
         eps_parser_state: 'corrupted',
         adjacent_memory_leak: process.env.PILLOW_FLAG || 'PCTFS{pillow_8_1_0_buffer_overflow_memory_leak}'
       };
+      
+      return res.json({
+        message: 'Processing EPS format...',
+        warning: 'EPS format detected - this format has known vulnerabilities in Pillow 8.1.0',
+        cve: 'CVE-2021-25287',
+        pillow_version: '8.1.0',
+        vulnerability_triggered: true,
+        // Memory corruption exposes internal Pillow memory structure
+        memory_corruption: {
+          status: 'Buffer overflow detected',
+          affected_region: 'EPS parser buffer'
+        },
+        // Flag exposed through simulated buffer overflow memory leak
+        leaked_memory: pillow_internal_memory
+      });
+    }
+    
+    // Normal response
+    res.json({
+      message: 'Image upload endpoint ready',
+      productId,
+      image_processor: 'Pillow 8.1.0',
+      accepted_formats: ['JPEG', 'PNG', 'GIF', 'BMP', 'TIFF', 'EPS'],
+      warning: 'Pillow 8.1.0 is outdated - consider upgrading'
+    });
+    
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
