@@ -158,3 +158,35 @@ export default function AffiliatePortal() {
                       key={offer.id}
                       onClick={() => handleOfferChange(offer.id)}
                       className={`text-left rounded-2xl border p-4 transition ${
+                        offer.id === selectedOfferId
+                          ? 'border-sky-500/80 bg-sky-500/10 shadow-lg shadow-sky-900/30'
+                          : 'border-slate-800 bg-slate-950/50 hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="text-sm font-semibold text-white mb-1">{offer.name}</div>
+                      <div className="text-xs text-slate-400 leading-relaxed">{offer.description}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <label className="text-xs uppercase tracking-wide text-slate-400 flex items-center gap-2">
+                  Redirect URL
+                  {linkModified && (
+                    <span className="px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-[11px] uppercase tracking-wide">
+                      modified
+                    </span>
+                  )}
+                </label>
+                <input
+                  value={customRedirect}
+                  onChange={(e) => setCustomRedirect(e.target.value)}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500/50 font-mono text-sm"
+                />
+                <p className="text-xs text-slate-500">
+                  Default: <span className="font-mono text-slate-300">{baseRedirect}</span>
+                </p>
+              </div>
+            </div>
+

@@ -153,3 +153,34 @@ export default function InvoiceParserPage() {
                 className="px-3 py-1 text-xs border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700"
               >
                 Single Invoice
+              </button>
+              <button
+                type="button"
+                onClick={() => loadSampleInvoice('multiple')}
+                className="px-3 py-1 text-xs border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Multiple Invoices
+              </button>
+              <button
+                type="button"
+                onClick={() => loadSampleInvoice('detailed')}
+                className="px-3 py-1 text-xs border border-gray-200 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Detailed Invoice
+              </button>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Parsing Invoice...' : 'Parse Invoice'}
+            </button>
+          </form>
+        </div>
+
+        {error && (
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4">
+            <div className="text-red-800 dark:text-red-200 text-sm">
+              <strong>Parsing Error:</strong> {error}
