@@ -143,3 +143,32 @@ router.post('/invoice/parse', async (req, res) => {
           invoices.push({
             id: invoice['@_id'] || null,
             content: typeof invoice === 'string' ? invoice : JSON.stringify(invoice),
+            raw: typeof invoice === 'string' ? invoice : JSON.stringify(invoice)
+          });
+        });
+      }
+
+      const response = {
+        message: 'Invoice XML parsed',
+        count: invoices.length,
+        invoices: invoices
+      };
+
+      if (flagDisclosure) {
+        response.flag = process.env.XXE_FLAG || 'PCTFS{xxe_file_read_external_entity}';
+      }
+
+      res.json(response);
+    } catch (xmlError) {
+      res.status(400).json({ 
+        error: 'XML parsing error',
+        details: xmlError.message
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
+
