@@ -184,3 +184,33 @@ router.get('/track', (req, res) => {
       // But we're checking the decoded value, so it catches some cases
       // However, double encoding can still bypass
       
+      // Check if it's an affiliate link (for the CTF)
+      if (partner_id && decodedRedirect.includes('evil')) {
+        return res.json({
+          message: 'Affiliate link tracked',
+          redirect: decodedRedirect,
+          partner_id: partner_id,
+          flag: AFFILIATE_FLAG
+        });
+      }
+      
+      if (!decodedRedirect.startsWith('http://localhost') && !decodedRedirect.startsWith('https://localhost')) {
+        return res.redirect(302, '/affiliate?notice=external-blocked');
+      }
+
+      // Normal redirect
+      return res.redirect(302, decodedRedirect);
+    }
+    
+    // If no protocol, assume relative URL (still vulnerable)
+    if (decodedRedirect.startsWith('http://') || decodedRedirect.startsWith('https://')) {
+      return res.redirect(302, '/affiliate?notice=external-blocked');
+    }
+
+    res.redirect(302, decodedRedirect);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;

@@ -194,3 +194,35 @@ docker-compose logs -f
 - Works with `<svg/onload>` payload
 
 ### SSTI
+- **Invoice Renderer**: Lightweight helper-driven evaluation (`{{ flag }}`)
+- **EJS**: User input in template context
+- Invoice path leaks only the dedicated flag helper
+
+### Vulnerable Components
+- **Debug Console**: Weak PIN (1234) + `eval()` RCE
+- **Pillow**: Simulated CVE-2021-25287
+
+### IDOR
+- **No authorization checks** on resource access
+- Direct object reference by ID
+- Exposes sensitive user data
+
+### XXE
+- **Manual entity resolution** with `fs.readFileSync()`
+- Reads arbitrary files from filesystem
+- No XML parser hardening
+
+### Path Traversal
+- **Weak validation** of `../` (can bypass with `....//`)
+- **Double encoding** bypass support
+- No path normalization
+
+### Data Exposure
+- **Git directory** exposed via Nginx
+- **Config endpoint** with weak header check
+- Leaks credentials and API keys
+
+### SSRF
+- **Case-sensitive** file:// check (bypass with `File://`)
+- **No IP blacklist** for internal networks
+- Can access internal services
