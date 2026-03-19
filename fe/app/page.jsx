@@ -163,3 +163,36 @@ export default async function Home() {
               <div className="relative pt-[100%] overflow-hidden">
                 <img
                   src={p.imageUrl}
+                  alt={p.name}
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4">
+                <div className="inline-block text-xs px-2 py-1 rounded-full bg-white/10 text-slate-200/80 mb-2">
+                  {p.category}
+                </div>
+                <h3 className="text-sm font-semibold text-white mb-2 line-clamp-2">{p.name}</h3>
+                <div className="flex items-center justify-between">
+                  <div className="text-sky-300 font-semibold">
+                    ${(p.priceCents / 100).toFixed(2)}
+                  </div>
+                  <Link href={`/product/${p.id}`} className="text-sm px-3 py-2 rounded-full bg-sky-500/80 text-white hover:bg-sky-400 transition">
+                    View
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="container mx-auto px-4 py-12">
+        <div className="rounded-3xl border border-white/10 bg-slate-900/70 backdrop-blur p-10 text-center space-y-5">
+          <h2 className="text-3xl font-bold text-white">Ready to Start Shopping?</h2>
+          <p className="text-slate-400">Join thousands of satisfied customers and experience the best online shopping today.</p>
+          <div className="flex gap-3 justify-center">
+            <Link href="/register" className="px-4 py-2 rounded-full bg-sky-500 text-white hover:bg-sky-400 transition">Create Account</Link>
+            <Link href="/products" className="px-4 py-2 rounded-full border border-white/20 text-slate-200 hover:bg-white/10 transition">Browse Products</Link>
+          </div>
+        </div>
+      </section>
