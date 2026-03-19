@@ -194,3 +194,35 @@ export default function OrderDetailsPage() {
             <h3 className="font-semibold mb-4 text-lg">Items</h3>
             <div className="space-y-3">
               {order.items && order.items.map((item, idx) => (
+                <div key={idx} className="flex items-center gap-4 pb-3 border-b border-gray-100 dark:border-gray-700 last:border-0">
+                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center text-2xl">
+                    📦
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-semibold">{item.product?.name || 'Product'}</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">Quantity: {item.qty}</div>
+                  </div>
+                  <div className="font-semibold">${((item.price_cents || item.priceCents || 0) / 100).toFixed(2)}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Total */}
+          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex justify-between items-center text-xl font-bold">
+              <span>Total</span>
+              <span>${((order.total_cents || order.totalCents || 0) / 100).toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Invoice Generator */}
+        <div className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg border border-purple-200 dark:border-purple-800 p-6">
+          <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
+            <span>🧾</span>
+            <span>Generate Custom Invoice</span>
+          </h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            Add a personalized note to your invoice. Supports dynamic template variables.
+          </p>
