@@ -193,3 +193,36 @@
                     "type": "string",
                     "format": "email"
                   },
+                  "username": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Profile updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authenticated"
+          }
+        }
+      }
+    },
+    "/api/v1/track": {
+      "get": {
+        "summary": "Capture affiliate redirect",
+        "description": "Records partner activity and then redirects to the requested destination.",
+        "parameters": [
+          {
+            "name": "partner_id",
+            "in": "query",
