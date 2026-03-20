@@ -183,3 +183,33 @@ export default async function ProductsPage() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.items.length === 0 && (
+              <div className="col-span-full text-center text-sm text-foreground/60 border border-black/10 dark:border-white/10 rounded-xl p-6">
+                No products available right now. Please try again later.
+              </div>
+            )}
+            {data.items.map((p) => (
+              <div key={p.id} className="group rounded-xl border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <div className="relative pt-[100%] overflow-hidden">
+                  <img
+                    src={p.imageUrl}
+                    alt={p.name}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  />
+                </div>
+                <div className="p-4">
+                  <div className="inline-block text-xs px-2 py-1 rounded bg-black/5 dark:bg-white/10 mb-2">{p.category}</div>
+                  <h3 className="text-sm font-semibold mb-1 line-clamp-2">{p.name}</h3>
+                  <div className="text-xs text-amber-500 mb-2">⭐ {p.rating}</div>
+                  <div className="flex items-center justify-between">
+                    <div className="text-blue-600 dark:text-blue-400 font-semibold">${(p.priceCents/100).toFixed(2)}</div>
+                    <Link href={`/product/${p.id}`} className="text-sm px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">View</Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}

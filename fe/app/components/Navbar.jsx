@@ -174,3 +174,32 @@ export default function Navbar() {
             <div className="h-px bg-white/10" />
             {isLoggedIn ? (
               <>
+                <Link
+                  href="/profile"
+                  className="block px-3 py-2 rounded hover:bg-white/10 text-slate-200"
+                  onClick={() => setOpen(false)}
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    handleLogout();
+                  }}
+                  className="block w-full text-left px-3 py-2 rounded hover:bg-white/10 text-slate-200"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="block px-3 py-2 rounded hover:bg-white/10 text-slate-200" onClick={() => setOpen(false)}>Login</Link>
+                <Link href="/register" className="block px-3 py-2 rounded hover:bg-white/10 text-slate-200" onClick={() => setOpen(false)}>Sign up</Link>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
