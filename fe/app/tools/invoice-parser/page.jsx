@@ -184,3 +184,33 @@ export default function InvoiceParserPage() {
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-4">
             <div className="text-red-800 dark:text-red-200 text-sm">
               <strong>Parsing Error:</strong> {error}
+            </div>
+          </div>
+        )}
+
+        {result && (
+          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md p-4">
+            <div className="space-y-2">
+              <h3 className="font-semibold">Parsing Result</h3>
+              <pre className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-mono p-3 rounded border border-gray-200 dark:border-gray-700 text-xs overflow-auto max-h-96 whitespace-pre-wrap">
+{JSON.stringify(result.data, null, 2)}
+              </pre>
+            </div>
+          </div>
+        )}
+
+        <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-md p-4">
+          <h3 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">🔧 Parser Features</h3>
+          <ul className="text-sm text-purple-700 dark:text-purple-300 space-y-1">
+            <li>• Supports standard XML invoice formats</li>
+            <li>• Validates invoice structure and required fields</li>
+            <li>• Extracts customer information, amounts, and line items</li>
+            <li>• Handles complex nested XML structures</li>
+            <li>• Processes custom XML entities and references</li>
+            <li>• Compatible with most accounting software exports</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
