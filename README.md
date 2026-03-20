@@ -200,3 +200,37 @@ Hackazon contains **15 unique flags** in the format `PCTFS{...}`:
 - **[SECURITY_TESTING_GUIDE.md](./SECURITY_TESTING_GUIDE.md)** - Original testing guide (legacy)
 
 ---
+
+## 🛠️ Development
+
+### Local Development (Without Docker)
+
+#### Backend
+```bash
+cd be
+
+# Install dependencies
+npm install
+
+# Set up environment
+cp .env.example .env
+# Edit .env with your database credentials
+
+# Run migrations
+npm run prisma:migrate
+
+# Seed database
+npm run prisma:seed
+
+# Start dev server
+npm run dev
+```
+
+#### Frontend
+```bash
+cd fe
+
+# Install dependencies
+npm install
+
+# Start dev server
