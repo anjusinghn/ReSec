@@ -197,3 +197,36 @@ export default function ProductPage({ params }) {
       }
     } catch (err) {
       alert('Error submitting review');
+    } finally {
+      setSubmitLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    // VULNERABILITY: Reflected XSS - error message rendered with dangerouslySetInnerHTML
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-6 text-center">
+          <div className="text-5xl mb-3">⚠️</div>
+          <h2 className="text-xl font-bold mb-2">Error</h2>
+          <div 
+            className="text-foreground/80"
+            dangerouslySetInnerHTML={{ __html: error }}
+          />
+          <Link href="/products" className="inline-block mt-4 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">
+            Back to Products
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!product) {
