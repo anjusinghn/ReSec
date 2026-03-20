@@ -190,3 +190,35 @@ export default function AffiliatePortal() {
               </div>
             </div>
 
+            <div className="rounded-3xl border border-slate-800 bg-slate-900/80 backdrop-blur shadow-xl p-6 md:p-8 space-y-5">
+              <h3 className="text-lg font-semibold text-white">Shareable Referral Link</h3>
+              <div className="rounded-2xl bg-slate-950/70 border border-slate-800 p-4 md:p-5">
+                <code className="block text-sm text-sky-200 break-all">{referralLink}</code>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={handleCopy}
+                  className="px-4 py-2 rounded-full bg-sky-500 text-white text-sm font-semibold hover:bg-sky-400 transition"
+                >
+                  Copy Link
+                </button>
+                <button
+                  onClick={handleTestRedirect}
+                  className="px-4 py-2 rounded-full border border-slate-700 text-slate-200 text-sm hover:bg-slate-800 transition"
+                >
+                  Test Redirect
+                </button>
+              </div>
+              {copied && <div className="text-xs text-slate-400">{copied}</div>}
+              <div className="text-xs text-slate-500 leading-relaxed">
+                Heads up: tweaking the destination reveals a special researcher flag before the backend proxy forwards the traffic.
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/60 backdrop-blur shadow-xl p-6 md:p-8 space-y-6">
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold text-white">Performance Moodboard</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Sculpt your campaigns with modular components. Swap creative assets, remix redirect targets, and broadcast seasonal
+                journeys without waiting on engineering.
