@@ -169,3 +169,31 @@ npm run stop
 ```
 
 Or manually:
+
+```bash
+# Stop Docker services
+docker-compose down
+
+# Kill Node processes
+pkill -f nodemon
+pkill -f "next dev"
+```
+
+## Project Structure
+
+```
+med-lab/
+├── be/                 # Backend API (Express.js)
+├── fe/                 # Frontend (Next.js)
+├── infra/             # Infrastructure configs
+├── secrets/           # Flag files
+├── docker-compose.yml # Docker services only (DB, Redis, Internal API)
+├── package.json       # Root package with concurrently scripts
+├── start.sh          # Quick start script
+└── STARTUP_GUIDE.md  # This file
+```
+
+## Security Notice
+
+⚠️ **WARNING**: This application contains intentional security vulnerabilities for educational and testing purposes only. Do NOT deploy to production or expose to the internet.
+
