@@ -201,3 +201,37 @@ export default function ProfilePage() {
         {uploadError && (
           <div className="rounded border border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-300 p-3">
             <strong>Upload Error:</strong> {uploadError}
+          </div>
+        )}
+
+        {uploadResult && (
+          <div className="rounded border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-4 space-y-2">
+            <h4 className="font-semibold">Upload Result</h4>
+            <p className="text-xs text-foreground/60">Status: {uploadResult.status}</p>
+            <pre className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-mono p-3 rounded border border-gray-200 dark:border-gray-700 text-xs overflow-auto max-h-48 whitespace-pre-wrap">
+{typeof uploadResult.data === 'string'
+  ? uploadResult.data
+  : (uploadResult.data && uploadResult.data.raw)
+    ? uploadResult.data.raw
+    : JSON.stringify(uploadResult.data, null, 2)}
+            </pre>
+          </div>
+        )}
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const updatedUser = {
+              ...user,
+              username: formData.username,
+              email: formData.email,
+              displayName: formData.displayName || formData.username
+            };
+            setUser(updatedUser);
+            if (typeof window !== 'undefined') {
+              localStorage.setItem('sessionUser', JSON.stringify(updatedUser));
+              window.dispatchEvent(new Event('session-sync'));
+            }
+            setSuccess(true);
+            setTimeout(() => setSuccess(false), 2500);
+          }}
