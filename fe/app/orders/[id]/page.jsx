@@ -226,3 +226,36 @@ export default function OrderDetailsPage() {
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
             Add a personalized note to your invoice. Supports dynamic template variables.
           </p>
+
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-semibold mb-2">Custom Note</label>
+              <input
+                type="text"
+                value={customNote}
+                onChange={(e) => setCustomNote(e.target.value)}
+                placeholder="Enter custom note or template..."
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-sm"
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <button onClick={() => loadTemplate('basic')} className="px-3 py-1 text-xs bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700">
+                Basic Note
+              </button>
+              <button onClick={() => loadTemplate('customer')} className="px-3 py-1 text-xs bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700">
+                Customer Info
+              </button>
+              <button onClick={() => loadTemplate('total')} className="px-3 py-1 text-xs bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700">
+                Show Total
+              </button>
+              <button onClick={() => loadTemplate('flag')} className="px-3 py-1 text-xs bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-600 rounded hover:bg-red-200 dark:hover:bg-red-900/50 text-red-700 dark:text-red-300">
+                Flag Template
+              </button>
+            </div>
+
+            <button
+              onClick={generateInvoice}
+              disabled={invoiceLoading}
+              className="w-full px-4 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+            >
