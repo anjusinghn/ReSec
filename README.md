@@ -234,3 +234,36 @@ cd fe
 npm install
 
 # Start dev server
+npm run dev
+```
+
+### Database Management
+```bash
+# Generate Prisma client
+cd be && npm run prisma:generate
+
+# Run migrations
+npm run prisma:migrate
+
+# Seed database
+npm run prisma:seed
+
+# Open Prisma Studio
+npm run prisma:studio
+```
+
+### Docker Commands
+```bash
+# Start services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f [service-name]
+
+# Stop services
+docker-compose down
+
+# Rebuild images
+docker-compose build --no-cache
+
+# Remove all data
