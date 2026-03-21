@@ -229,3 +229,36 @@ export default async function Home() {
               </div>
             </div>
             <div className="flex-1 max-w-md w-full">
+              <div className="rounded-2xl bg-black/50 border border-white/30 p-6 text-white shadow-inner space-y-4">
+                <div className="flex items-center justify-between text-xs text-white/60 uppercase tracking-[0.2em]">
+                  <span>live metrics</span>
+                  <span className="flex items-center gap-1 text-emerald-300">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    online
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div className="p-3 rounded-xl bg-white/10 border border-white/10">
+                    <div className="text-2xl font-bold">1.8K</div>
+                    <div className="text-[11px] uppercase text-white/60 tracking-wide">Clicks</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/10 border border-white/10">
+                    <div className="text-2xl font-bold">274</div>
+                    <div className="text-[11px] uppercase text-white/60 tracking-wide">Conversions</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/10 border border-white/10">
+                    <div className="text-2xl font-bold">$4.2k</div>
+                    <div className="text-[11px] uppercase text-white/60 tracking-wide">Payout</div>
+                  </div>
+                </div>
+                <div className="rounded-xl bg-white/10 border border-white/10 p-4 text-sm text-white/80 leading-relaxed">
+                  “Adaptive routing keeps every referral hyper-relevant. Flex the redirect, flash the visuals, and watch the rewards stack.”
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
