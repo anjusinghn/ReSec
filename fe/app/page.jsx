@@ -196,3 +196,36 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <section className="relative py-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-emerald-500 opacity-70 blur-3xl" />
+        <div className="relative container mx-auto px-4">
+          <div className="rounded-3xl bg-white/15 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-black/30 shadow-2xl p-10 md:p-16 flex flex-col md:flex-row items-center gap-10">
+            <div className="flex-1 text-center md:text-left space-y-5">
+              <span className="inline-flex items-center gap-2 text-xs tracking-[0.35em] uppercase text-white/70 font-semibold">
+                <span className="w-2 h-2 rounded-full bg-white/70" />
+                affiliate launchpad
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-white drop-shadow-lg leading-tight">
+                Spin Up Your Own Referral Galaxy
+              </h2>
+              <p className="text-white/75 text-sm md:text-base leading-relaxed">
+                Craft high-converting referral journeys, remix destinations on demand, and monitor live momentum from a single luminous dashboard.
+                Dive into the portal to mint bespoke links, animate hero banners, and activate seasonal campaigns in style.
+              </p>
+              <div className="flex flex-wrap justify-center md:justify-start gap-3 pt-2">
+                <Link
+                  href="/affiliate"
+                  className="px-5 py-3 rounded-full bg-slate-950 text-white border border-white/30 font-semibold shadow-lg shadow-slate-950/60 hover:bg-slate-900 transition"
+                >
+                  Enter Affiliate Portal
+                </Link>
+                <a
+                  href="#"
+                  className="px-5 py-3 rounded-full border border-white/60 text-white/80 hover:bg-white/10 transition"
+                >
+                  View Success Stories
+                </a>
+              </div>
+            </div>
+            <div className="flex-1 max-w-md w-full">
