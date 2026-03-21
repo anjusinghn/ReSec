@@ -226,3 +226,36 @@ docker-compose logs -f
 - **Case-sensitive** file:// check (bypass with `File://`)
 - **No IP blacklist** for internal networks
 - Can access internal services
+
+### Open Redirect
+- **Weak domain validation** (bypass with `@`)
+- **No URL normalization**
+- Protocol-relative URLs allowed
+
+---
+
+## 🔐 Security Notes
+
+### ⚠️ CRITICAL WARNINGS
+
+1. **NEVER** deploy to production
+2. **NEVER** expose to public internet
+3. **ONLY** use in isolated environments
+4. **ALWAYS** run in Docker containers
+5. **NO** real user data
+6. **NO** production credentials
+
+### Safe Usage
+
+✅ **Approved Uses**:
+- Security training workshops
+- CTF competitions
+- Penetration testing practice
+- Security tool validation
+- Educational demonstrations
+
+❌ **Prohibited Uses**:
+- Production deployments
+- Public internet exposure
+- Real customer data
+- Production database connections
