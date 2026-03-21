@@ -226,3 +226,35 @@
           {
             "name": "partner_id",
             "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifier assigned to the partner generating the referral."
+          },
+          {
+            "name": "redirect",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Encoded URL where the visitor should be sent after tracking."
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "User is redirected after tracking."
+          },
+          "200": {
+            "description": "Tracking acknowledgement (used in some lab scenarios)."
+          },
+          "400": {
+            "description": "Missing parameters"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
