@@ -222,3 +222,35 @@ export default function AffiliatePortal() {
               <p className="text-sm text-slate-400 leading-relaxed">
                 Sculpt your campaigns with modular components. Swap creative assets, remix redirect targets, and broadcast seasonal
                 journeys without waiting on engineering.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="rounded-2xl bg-slate-950/70 border border-slate-800 p-4">
+                <div className="text-xs uppercase tracking-[0.3em] text-slate-500">Next Milestone</div>
+                <div className="mt-1 text-2xl font-bold text-white">{partnerName}</div>
+                <div className="text-sm text-slate-400">Launches <span className="text-sky-300">{selectedOffer.name}</span></div>
+              </div>
+              <div className="rounded-2xl bg-slate-950/70 border border-slate-800 p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Campaign Heat</span>
+                  <span className="text-xs text-slate-500">+36% vs last week</span>
+                </div>
+                <div className="h-3 rounded-full bg-slate-800 overflow-hidden">
+                  <div className="h-full w-[72%] bg-gradient-to-r from-sky-400 via-blue-500 to-emerald-400" />
+                </div>
+              </div>
+              <div className="rounded-2xl bg-slate-950/70 border border-slate-800 p-4">
+                <div className="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">quick tips</div>
+                <ul className="space-y-2 text-sm text-slate-400">
+                  <li>• Band limited drops with micro influencers for amplified urgency.</li>
+                  <li>• Rotate redirect destinations to spotlight limited-time merch.</li>
+                  <li>• Inject personalized UTM tags to trace every spark of engagement.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
