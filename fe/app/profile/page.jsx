@@ -235,3 +235,36 @@ export default function ProfilePage() {
             setSuccess(true);
             setTimeout(() => setSuccess(false), 2500);
           }}
+          className="rounded-xl border border-black/10 dark:border-white/10 p-6 space-y-3"
+        >
+          <h4 className="font-semibold">Personal Information</h4>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm mb-1">First Name</label>
+              <input
+                value={formData.firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+              />
+            </div>
+            <div>
+              <label className="block text-sm mb-1">Last Name</label>
+              <input
+                value={formData.lastName}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Username</label>
+            <input
+              value={formData.username}
+              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+            />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Email Address</label>
+            <input
+              type="email"

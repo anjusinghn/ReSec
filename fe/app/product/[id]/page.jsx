@@ -230,3 +230,36 @@ export default function ProductPage({ params }) {
   }
 
   if (!product) {
+    return null;
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <Link href="/products" className="inline-block mb-4 text-sm hover:underline">← Back to Products</Link>
+      <div className="grid md:grid-cols-2 gap-8 mb-10">
+        <div className="rounded-xl overflow-hidden border border-black/10 dark:border-white/10">
+          <img src={product.imageUrl || `https://placehold.co/600x600/3b82f6/fff?text=${encodeURIComponent(product.name)}`} alt={product.name} className="w-full h-[480px] object-cover" />
+        </div>
+        <div>
+          <div className="inline-block text-xs px-2 py-1 rounded bg-black/5 dark:bg-white/10 mb-2">
+            {product.categoryId ? `Category ${product.categoryId}` : 'General'}
+          </div>
+          <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
+          <div className="mb-3 text-amber-500">
+            ⭐⭐⭐⭐⭐ <span className="text-foreground/70">({reviews.length} reviews)</span>
+          </div>
+          <div className="text-3xl text-blue-600 dark:text-blue-400 font-extrabold mb-4">${(product.priceCents/100).toFixed(2)}</div>
+          <p className="text-foreground/80 mb-4">{product.description}</p>
+          <div className="flex gap-2">
+            <button className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Add to Cart</button>
+            <button className="px-4 py-2 rounded border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/10">❤️ Add to Wishlist</button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-xl font-bold mb-4">Customer Reviews</h3>
+        
+        {/* Review submission form */}
+        <form onSubmit={handleSubmitReview} className="rounded-xl border border-black/10 dark:border-white/10 p-4 mb-6">
+          <h4 className="font-semibold mb-3">Write a Review</h4>
