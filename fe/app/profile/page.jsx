@@ -268,3 +268,37 @@ export default function ProfilePage() {
             <label className="block text-sm mb-1">Email Address</label>
             <input
               type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+            />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Display Name</label>
+            <input
+              value={formData.displayName}
+              onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
+              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+            />
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Bio</label>
+            <textarea
+              rows={3}
+              placeholder="Tell us a bit about yourself"
+              value={formData.bio}
+              onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+            />
+          </div>
+          <button className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">
+            Save Changes
+          </button>
+        </form>
+
+        <form className="rounded-xl border border-black/10 dark:border-white/10 p-6 space-y-3">
+          <h4 className="font-semibold">Shipping Address</h4>
+          <div>
+            <label className="block text-sm mb-1">Street Address</label>
+            <input
+              placeholder="123 Main St"
