@@ -267,3 +267,37 @@ docker-compose down
 docker-compose build --no-cache
 
 # Remove all data
+docker-compose down -v
+```
+
+---
+
+## 🔍 Project Structure
+
+```
+med-lab/
+├── be/                                 # Backend API
+│   ├── src/
+│   │   ├── routes/                     # API routes (vulnerabilities)
+│   │   │   ├── products.js             # SQLi (Search)
+│   │   │   ├── orders.js               # SQLi + IDOR
+│   │   │   ├── reviews.js              # XSS (Stored)
+│   │   │   ├── users.js                # IDOR (Profile)
+│   │   │   ├── invoice.js              # SSTI (restricted renderer)
+│   │   │   ├── email.js                # SSTI (EJS)
+│   │   │   ├── admin.js                # Vuln Components
+│   │   │   ├── xml.js                  # XXE
+│   │   │   ├── download.js             # Path Traversal + Open Redirect
+│   │   │   ├── config.js               # Data Exposure
+│   │   │   ├── proxy.js                # SSRF (Proxy)
+│   │   │   └── webhooks.js             # SSRF (Webhook)
+│   │   ├── lib/
+│   │   │   └── db.js                   # Prisma client
+│   │   └── index.js                    # Express app
+│   ├── prisma/
+│   │   ├── schema.prisma               # Database schema
+│   │   └── seed.js                     # Seed data + flags
+│   └── package.json
+├── fe/                                 # Frontend (Next.js)
+│   ├── app/
+│   │   ├── product/[id]/page.jsx       # XSS (Stored + Reflected)
