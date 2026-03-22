@@ -263,3 +263,36 @@ export default function ProductPage({ params }) {
         {/* Review submission form */}
         <form onSubmit={handleSubmitReview} className="rounded-xl border border-black/10 dark:border-white/10 p-4 mb-6">
           <h4 className="font-semibold mb-3">Write a Review</h4>
+          <div className="space-y-3">
+            <div>
+              <label className="block text-sm font-medium mb-1">Rating</label>
+              <select 
+                value={newReview.rating}
+                onChange={(e) => setNewReview({...newReview, rating: parseInt(e.target.value)})}
+                className="px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+              >
+                {[5,4,3,2,1].map(r => (
+                  <option key={r} value={r}>{'⭐'.repeat(r)} ({r} stars)</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">Your Review</label>
+              <textarea 
+                value={newReview.text}
+                onChange={(e) => setNewReview({...newReview, text: e.target.value})}
+                placeholder="Share your experience with this product..."
+                required
+                rows={4}
+                className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+              />
+              <p className="text-xs text-foreground/60 mt-1">
+                Tip: Share constructive feedback to help other shoppers.
+              </p>
+            </div>
+            <button 
+              type="submit"
+              disabled={submitLoading}
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50"
+            >
+              {submitLoading ? 'Submitting...' : 'Submit Review'}
