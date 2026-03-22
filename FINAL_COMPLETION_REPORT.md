@@ -259,3 +259,35 @@ docker-compose logs -f
 - Public internet exposure
 - Real customer data
 - Production database connections
+- Malicious purposes
+
+---
+
+## 📊 Project Statistics
+
+- **Backend Routes**: 12 route files
+- **Frontend Pages**: 15+ pages
+- **Vulnerability Instances**: 20
+- **Unique Flags**: 15
+- **Lines of Code**: ~5,000+
+- **Docker Services**: 6 containers
+- **Database Models**: 8 models
+- **Test Cases**: 20 automated tests
+- **Documentation Pages**: 3 comprehensive guides
+- **Development Time**: ~6 hours
+
+---
+
+## 🎯 Testing Guide Quick Reference
+
+### One-Line Test Commands
+
+```bash
+# 1. SQL Injection
+curl "http://localhost:4000/api/v1/products/search?category=1%20OR%201=1"
+
+# 2. XSS
+curl -X POST http://localhost:4000/api/v1/reviews -b cookies.txt -d '{"productId":1,"rating":5,"text":"<svg/onload=alert(1)>"}'
+
+# 3. SSTI
+curl -G "http://localhost:4000/api/v1/invoice/1" --data-urlencode "note={{ flag }}"

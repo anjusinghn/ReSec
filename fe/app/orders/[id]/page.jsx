@@ -259,3 +259,35 @@ export default function OrderDetailsPage() {
               disabled={invoiceLoading}
               className="w-full px-4 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
             >
+              {invoiceLoading ? 'Generating...' : 'Generate Invoice with Note'}
+            </button>
+          </div>
+
+          {/* Template Variables Guide */}
+          <div className="mt-4 bg-white/50 dark:bg-gray-900/50 rounded-md p-3">
+            <div className="text-xs font-semibold mb-2">📖 Available Template Variables:</div>
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+              <div className="bg-white dark:bg-gray-800 px-2 py-1 rounded">{`{{customer.name}}`}</div>
+              <div className="bg-white dark:bg-gray-800 px-2 py-1 rounded">{`{{customer.email}}`}</div>
+              <div className="bg-white dark:bg-gray-800 px-2 py-1 rounded">{`{{total}}`}</div>
+              <div className="bg-red-100 dark:bg-red-900/30 px-2 py-1 rounded text-red-700 dark:text-red-300">{`{{flag}}`}</div>
+            </div>
+          </div>
+
+          {/* Invoice Result */}
+          {invoiceData && (
+            <div className="mt-4 bg-white dark:bg-gray-800 rounded-md p-4 border border-gray-200 dark:border-gray-700">
+              <div className="text-sm font-semibold mb-2">✅ Invoice Generated</div>
+              <div className="bg-gray-50 dark:bg-gray-900 rounded p-3">
+                <pre className="text-xs font-mono overflow-auto whitespace-pre-wrap">
+{JSON.stringify(invoiceData, null, 2)}
+                </pre>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
