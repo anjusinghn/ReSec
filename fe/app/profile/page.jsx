@@ -302,3 +302,37 @@ export default function ProfilePage() {
             <label className="block text-sm mb-1">Street Address</label>
             <input
               placeholder="123 Main St"
+              value={formData.address.street}
+              onChange={(e) => setFormData({
+                ...formData,
+                address: { ...formData.address, street: e.target.value }
+              })}
+              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+            />
+          </div>
+          <div className="grid md:grid-cols-4 gap-3">
+            <div className="md:col-span-2">
+              <label className="block text-sm mb-1">City</label>
+              <input
+                placeholder="New York"
+                value={formData.address.city}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  address: { ...formData.address, city: e.target.value }
+                })}
+                className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+              />
+            </div>
+            <div>
+              <label className="block text-sm mb-1">State</label>
+              <input
+                placeholder="NY"
+                value={formData.address.state}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  address: { ...formData.address, state: e.target.value }
+                })}
+                className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+              />
+            </div>
+            <div>
