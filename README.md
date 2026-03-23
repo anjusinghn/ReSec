@@ -301,3 +301,37 @@ med-lab/
 ├── fe/                                 # Frontend (Next.js)
 │   ├── app/
 │   │   ├── product/[id]/page.jsx       # XSS (Stored + Reflected)
+│   │   ├── search/page.jsx             # SQLi frontend
+│   │   ├── login/page.jsx              # Authentication
+│   │   └── ...                         # Other pages
+│   ├── lib/
+│   │   ├── auth.js                     # Better Auth config
+│   │   └── auth-client.js              # Auth client
+│   └── package.json
+├── infra/
+│   ├── docker/
+│   │   ├── Dockerfile.api              # Backend container
+│   │   └── Dockerfile.frontend         # Frontend container
+│   ├── nginx/
+│   │   └── default.conf                # Nginx config (Git exposure)
+│   └── internal-api.js                 # SSRF target service
+├── apps/api/secrets/flag.txt           # XXE flag
+├── docker-compose.yml                  # Multi-service orchestration
+├── test-all-vulnerabilities.sh         # Automated test suite
+├── COMPLETE_VULNERABILITY_TEST_GUIDE.md
+├── COMPLETE_IMPLEMENTATION_SUMMARY.md
+└── README.md
+```
+
+---
+
+## 🎓 Educational Use
+
+### Recommended Learning Path
+
+1. **Beginners**: Start with IDOR and Data Exposure (⭐)
+2. **Intermediate**: Explore SQLi, XSS, and Path Traversal (⭐⭐)
+3. **Advanced**: Tackle SSTI, XXE, and SSRF (⭐⭐⭐)
+4. **Expert**: Chain multiple vulnerabilities for complex exploits
+
+### Multi-Step Exploitation Chains
