@@ -296,3 +296,36 @@ export default function ProductPage({ params }) {
               className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50"
             >
               {submitLoading ? 'Submitting...' : 'Submit Review'}
+            </button>
+          </div>
+        </form>
+
+        {/* Reviews list - VULNERABILITY: Stored XSS rendered here */}
+        <div className="space-y-3">
+          {reviews.length > 0 ? reviews.map((review) => (
+            <div key={review.id} className="rounded-xl border border-black/10 dark:border-white/10 p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <div className="font-semibold">{review.user?.displayName || review.user?.username || 'Anonymous'}</div>
+                  <div className="text-amber-500 text-sm">{'⭐'.repeat(review.rating)}</div>
+                </div>
+                <span className="text-xs text-foreground/60">
+                  {new Date(review.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+              {/* VULNERABILITY: Stored XSS - review text rendered with dangerouslySetInnerHTML */}
+              <div 
+                className="text-sm text-foreground/80"
+                dangerouslySetInnerHTML={{ __html: review.text }}
+              />
+            </div>
+          )) : (
+            <div className="rounded-xl border border-black/10 dark:border-white/10 p-6 text-center text-foreground/60">
+              No reviews yet. Be the first to review this product!
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
