@@ -368,3 +368,37 @@ curl "http://localhost:4000/api/v1/proxy?url=http://internal-api:5000/secret"
 ## 🔐 Security Considerations
 
 ### ⚠️ WARNING
+
+This application is **INTENTIONALLY VULNERABLE**. It contains:
+
+- SQL Injection vulnerabilities
+- Cross-Site Scripting (XSS)
+- Remote Code Execution (RCE) opportunities
+- Authentication bypasses
+- Authorization failures
+- Sensitive data exposure
+- And many more security issues...
+
+### Safe Usage Guidelines
+
+✅ **DO**:
+- Use in isolated, air-gapped networks
+- Deploy in Docker containers
+- Use for educational purposes only
+- Practice responsible disclosure
+
+❌ **DO NOT**:
+- Deploy to production
+- Expose to the public internet
+- Use with real user data
+- Connect to production databases
+
+---
+
+## 🤝 Contributing
+
+This is an educational project. Contributions are welcome for:
+- Additional vulnerability patterns
+- Improved documentation
+- Bug fixes (non-security issues)
+- New exploitation techniques
