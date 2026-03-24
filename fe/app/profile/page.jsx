@@ -336,3 +336,36 @@ export default function ProfilePage() {
               />
             </div>
             <div>
+              <label className="block text-sm mb-1">ZIP</label>
+              <input
+                placeholder="10001"
+                value={formData.address.zip}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  address: { ...formData.address, zip: e.target.value }
+                })}
+                className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Country</label>
+            <select
+              value={formData.address.country}
+              onChange={(e) => setFormData({
+                ...formData,
+                address: { ...formData.address, country: e.target.value }
+              })}
+              className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-background"
+            >
+              <option>United States</option>
+              <option>Canada</option>
+              <option>United Kingdom</option>
+            </select>
+          </div>
+          <button className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-500">Save Address</button>
+        </form>
+      </div>
+    </div>
+  );
+}
