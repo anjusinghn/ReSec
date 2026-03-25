@@ -402,3 +402,36 @@ This is an educational project. Contributions are welcome for:
 - Improved documentation
 - Bug fixes (non-security issues)
 - New exploitation techniques
+
+Please maintain the intentionally vulnerable nature of the codebase.
+
+---
+
+## 📄 License
+
+This project is for **educational purposes only**. Use at your own risk.
+
+---
+
+## 🙏 Acknowledgments
+
+Built for security education and inspired by:
+- OWASP Top 10
+- PortSwigger Web Security Academy
+- HackTheBox & TryHackMe
+- Real-world CVEs and security research
+
+---
+
+## 📞 Support
+
+For issues, questions, or feedback:
+- Open an issue on GitHub
+- Refer to documentation files
+- Join security training communities
+
+---
+
+**Happy Learning! 🎓🔒**
+
+Remember: The best defense is understanding the offense. Practice safely!
